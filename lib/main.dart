@@ -1,6 +1,7 @@
 import 'package:app/features/main/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'core/apis/general.api.dart';
 import 'core/managers/hive.manager.dart';
 import 'core/utils/constants.dart';
@@ -11,11 +12,8 @@ void main() {
 
 void _init() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await HiveManager.init();
-
   Get.put(GeneralAPI());
-
   runApp(App());
 }
 
