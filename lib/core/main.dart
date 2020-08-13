@@ -1,4 +1,4 @@
-import 'package:app/features/main/main.screen.dart';
+import 'package:app/features/main/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +28,7 @@ class App extends StatelessWidget {
       home: MainScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.red,
         accentColor: Colors.redAccent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,

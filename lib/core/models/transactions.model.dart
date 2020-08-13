@@ -68,7 +68,7 @@ class Transaction {
         app: json["app"] == null ? null : App.fromJson(json["app"]),
         expiresDate: json["expires_date"] == null
             ? null
-            : DateTime.parse(json["expires_date"]),
+            : DateTime.parse(json["expires_date"]).toLocal(),
         isInIntroductoryPricePeriod:
             json["is_in_introductory_price_period"] == null
                 ? null
@@ -85,7 +85,7 @@ class Transaction {
             : json["product_identifier"],
         purchaseDate: json["purchase_date"] == null
             ? null
-            : DateTime.parse(json["purchase_date"]),
+            : DateTime.parse(json["purchase_date"]).toLocal(),
         revenue: json["revenue"] == null ? null : json["revenue"].toDouble(),
         storeTransactionIdentifier: json["store_transaction_identifier"] == null
             ? null

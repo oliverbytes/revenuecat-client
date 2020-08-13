@@ -82,7 +82,8 @@ class TransactionsTile extends StatelessWidget {
             ),
           ),
           Text(
-            Utils.getTimeAgo(dateTime: object.purchaseDate, short: false),
+            Utils.getTimeAgo(dateTime: object.purchaseDate, short: true) +
+                ' ago',
             style: TextStyle(fontSize: 12, color: Colors.grey),
           ),
           Text(
@@ -91,7 +92,7 @@ class TransactionsTile extends StatelessWidget {
           ),
         ],
       ),
-      onLongPress: () async {
+      onTap: () async {
         List<BaseSelection> selections = [
           BaseSelection(
               action: SelectionAction.COPY_TRANSACTION_ID,

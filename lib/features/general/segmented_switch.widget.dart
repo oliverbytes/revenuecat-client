@@ -1,5 +1,6 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SegmentedSwitch extends StatelessWidget {
   final List<Tab> tabs;
@@ -10,7 +11,7 @@ class SegmentedSwitch extends StatelessWidget {
   const SegmentedSwitch({
     Key key,
     this.tabs,
-    this.initialIndex,
+    this.initialIndex = 0,
     this.onChanged,
     this.fontSize = 12.0,
   }) : super(key: key);
@@ -23,15 +24,14 @@ class SegmentedSwitch extends StatelessWidget {
       child: TabBar(
         tabs: tabs,
         indicatorSize: TabBarIndicatorSize.tab,
-        // labelColor: globalController.brandedTextColor,
         labelStyle: TextStyle(fontWeight: FontWeight.w700, fontSize: fontSize),
         unselectedLabelColor: Colors.grey,
         isScrollable: true,
         onTap: onChanged,
         indicator: BubbleTabIndicator(
           indicatorHeight: 25.0,
-          // indicatorColor: globalController.tabActiveColor,
           tabBarIndicatorSize: TabBarIndicatorSize.tab,
+          indicatorColor: Get.theme.accentColor,
         ),
       ),
     );

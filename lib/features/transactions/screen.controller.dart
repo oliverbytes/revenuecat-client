@@ -76,6 +76,8 @@ class TransactionsScreenController extends BaseController {
       lastDate: DateTime.now(),
     );
 
+    if (selectedDate == null) return;
+
     date.value = DateTime(
         selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59);
 

@@ -13,10 +13,10 @@ class AuthScreen extends StatelessWidget {
     final _uiController = Get.put(AuthScreenController());
 
     final _instructions =
-        "To obtain your RevenueCat Authorization Token, fire up your development machine and open your favorite browser > Go to RevenueCat's website and make sure you're logged in already. Open the browser's Developer Console > Go to Network Tab > apply filter: api.revenuecat.com > open any logged traffic (some may not include the token, so take your time hunting) > Go to Headers Tab > then find the token in the Request Headers section.";
+        "Please view the README file for instructions: https://github.com/nemoryoliver/revenuecat-client/blob/master/README.md#installation";
 
     final _details =
-        "We are very grateful that RevenueCat exists! It's now super easy to integrate In App Purchases feature with minimal code required and no complexity. Yes, you can use the Web Dashboard to see everything, but we feel that an app is better especially on mobile. This app is Open Source, but please use at your own risk.";
+        "We are very grateful that RevenueCat exists! It's now easier to integrate In-App Purchase features in our apps with minimal code and less complexity. Yes, you can use RevenueCat's Web Dashboard to see everything, but come on, an app is better on mobile. ";
 
     final _content = Padding(
       padding: EdgeInsets.all(20),
@@ -41,7 +41,11 @@ class AuthScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 14),
                 ),
                 children: [
-                  Text(_instructions, textAlign: TextAlign.center),
+                  Linkify(
+                    text: _instructions,
+                    textAlign: TextAlign.center,
+                    onOpen: (link) => launch(link.url),
+                  ),
                 ],
               ),
               ExpansionTile(
@@ -81,13 +85,22 @@ class AuthScreen extends StatelessWidget {
               ),
               Divider(),
               Text(
-                'By logging in, you agree that you will be responsible for any unfortunate circumstances our app can do to your account.\nThis app is not endorsed nor affiliated by RevenueCat. Logo belongs to RevenueCat.',
+                'This app is not endorsed nor affiliated by RevenueCat. Logo & Trademarks belongs to RevenueCat.',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 10),
               Linkify(
-                text: 'Developed by: Nemory Studios\nhttps://nemorystudios.dev',
+                text:
+                    'Open Source & Contributors\nhttps://github.com/nemoryoliver/revenuecat-client',
+                style: TextStyle(color: Colors.grey, fontSize: 13),
+                linkStyle: TextStyle(color: Get.theme.accentColor),
+                textAlign: TextAlign.center,
+                onOpen: (link) => launch(link.url),
+              ),
+              SizedBox(height: 10),
+              Linkify(
+                text: 'Developer\nhttps://nemorystudios.dev',
                 style: TextStyle(color: Colors.grey, fontSize: 13),
                 linkStyle: TextStyle(color: Get.theme.accentColor),
                 textAlign: TextAlign.center,

@@ -36,7 +36,7 @@
   <h3 align="center">RevenueCat Client</h3>
 
   <p align="center">
-    A 3rd Party RevenueCat Cross Platform Client made with Flutter! This app is not endorsed nor affiliated by RevenueCat. Logo belongs to RevenueCat.
+    A 3rd Party RevenueCat Cross Platform Client made with Flutter! This app is not endorsed nor affiliated by RevenueCat. Logo & Trademarks belongs to RevenueCat.
     <br />
     <br />
     <a href="https://github.com/nemoryoliver/revenuecat-client/blob/master/revenuecat_client.apk">Download & Install APK</a>
@@ -73,15 +73,14 @@
 
 [![RevenueCat Client][product-screenshot]](https://github.com/nemoryoliver/revenuecat-client)
 
-We are very grateful that RevenueCat exists! It's now super easy to integrate In App Purchases feature with minimal code required and no complexity. Yes, you can use the Web Dashboard to see everything, but we feel that an app is better especially on mobile. 
-
-* This app is Open Source, but please use at your own risk.
+We are very grateful that RevenueCat exists! It's now easier to integrate In-App Purchase features in our apps with minimal code and less complexity. Yes, you can use RevenueCat's Web Dashboard to see everything, but come on, an app is better on mobile. 
 
 ### Features
 #### View Overview
-- filter by Date (previous & next buttons + date picker)
-- shows values per platform (iOS & Android)
+- filter by Date (previous day & next day buttons + date picker)
+- shows data per platform (iOS & Android)
 - shows last purchase, renewal, and trial conversion dates
+- RC Overview: Active Trials, Active Subscriptions, MRR, Revenue, Installs and Active Users in the last 28 days
 #### View Transactions
 - filter by Date (date picker)
 - search by Transaction ID
@@ -99,8 +98,8 @@ Google Flutter SDK
 ### Prerequisites
 
 * [Flutter SDK](https://flutter.dev)
-* [Android SDK & Android Studio](https://developer.android.com/studio) for Android
-* [XCode IDE](https://developer.apple.com/xcode/) for iOS
+* [Android SDK & Android Studio](https://developer.android.com/studio) for deployment to Android
+* [XCode IDE](https://developer.apple.com/xcode/) for deployment to iOS/iPad/MacOS
 * [VS Code IDE](https://code.visualstudio.com/) optional
 
 ### Installation
@@ -132,8 +131,6 @@ flutter run
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-By logging in the app, you agree that you will be responsible for any unfortunate circumstances our app can do to your account.
 
 
 <!-- ROADMAP -->
