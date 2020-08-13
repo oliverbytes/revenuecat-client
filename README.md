@@ -39,7 +39,7 @@
     A 3rd Party RevenueCat Cross Platform Client made with Flutter! This app is not endorsed nor affiliated by RevenueCat. Logo & Trademarks belongs to RevenueCat.
     <br />
     <br />
-    <a href="https://github.com/nemoryoliver/revenuecat-client/blob/master/revenuecat_client.apk">Download & Install APK</a>
+    <a href="https://github.com/nemoryoliver/revenuecat-client/releases">Download & Install for Android & MacOS</a>
     ·
     <a href="https://github.com/nemoryoliver/revenuecat-client/issues">Report Bug</a>
     ·
