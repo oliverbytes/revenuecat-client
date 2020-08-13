@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:app/core/logger.dart';
 import 'package:app/core/managers/hive.manager.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';

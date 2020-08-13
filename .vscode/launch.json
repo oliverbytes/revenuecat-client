@@ -8,14 +8,14 @@
             "name": "Debug",
             "type": "dart",
             "request": "launch",
-            "program": "lib/core/main.dart",
+            "program": "lib/main.dart",
             "flutterMode": "debug"
         },
         {
             "name": "Release",
             "type": "dart",
             "request": "launch",
-            "program": "lib/core/main.dart",
+            "program": "lib/main.dart",
             "flutterMode": "release"
         }
     ]

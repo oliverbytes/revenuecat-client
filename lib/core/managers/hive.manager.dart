@@ -1,4 +1,4 @@
-import 'package:app/core/logger.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';

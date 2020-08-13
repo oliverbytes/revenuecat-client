@@ -1,6 +1,6 @@
 import 'package:app/core/apis/general.api.dart';
-import 'package:app/core/base.controller.dart';
-import 'package:app/core/logger.dart';
+import 'package:app/core/controllers/base.controller.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/core/managers/hive.manager.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
 import 'package:app/features/main/screen.controller.dart';

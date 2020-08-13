@@ -1,4 +1,4 @@
-import 'package:app/core/logger.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';

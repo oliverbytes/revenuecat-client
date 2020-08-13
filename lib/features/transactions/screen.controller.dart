@@ -1,6 +1,6 @@
 import 'package:app/core/apis/general.api.dart';
-import 'package:app/core/base.controller.dart';
-import 'package:app/core/logger.dart';
+import 'package:app/core/controllers/base.controller.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/core/models/transactions.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -23,7 +23,7 @@ class TransactionsScreenController extends BaseController {
 
   // GETTERS
   int get count => data.value.length;
-  String get sinceDate => DateFormat.yMMMEd().format(date.value);
+  String get sinceDate => DateFormat.yMMMd().format(date.value);
 
   // INIT
   @override

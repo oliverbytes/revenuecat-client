@@ -1,6 +1,6 @@
 import 'package:app/core/apis/general.api.dart';
-import 'package:app/core/base.controller.dart';
-import 'package:app/core/logger.dart';
+import 'package:app/core/controllers/base.controller.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/core/models/overview.model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

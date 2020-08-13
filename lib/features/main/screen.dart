@@ -1,5 +1,5 @@
-import 'package:app/core/constants.dart';
-import 'package:app/core/logger.dart';
+import 'package:app/core/utils/constants.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/segmented_switch.widget.dart';
 import 'package:app/features/overview/screen.dart';
 import 'package:app/features/overview_day/screen.dart';

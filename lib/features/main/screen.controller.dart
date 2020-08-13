@@ -1,4 +1,4 @@
-import 'package:app/core/logger.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/core/managers/hive.manager.dart';
 import 'package:app/features/authentication/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';

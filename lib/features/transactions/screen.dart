@@ -1,4 +1,4 @@
-import 'package:app/core/logger.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/busy_indicator.widget.dart';
 import 'package:app/features/general/empty_placeholder.widget.dart';
 import 'package:app/features/transactions/screen.controller.dart';

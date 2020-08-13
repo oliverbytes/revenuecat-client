@@ -1,4 +1,4 @@
-import 'package:app/core/logger.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:app/features/authentication/screen.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
