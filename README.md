@@ -87,6 +87,10 @@ Google Flutter SDK
 
 ### Prerequisites
 
+* [Flutter SDK](https://flutter.dev)
+* [Android SDK & Android Studio](https://developer.android.com/studio) for Android
+* [XCode IDE](https://developer.apple.com/xcode/) for iOS
+* [VS Code IDE](https://code.visualstudio.com/) optional
 
 ### Installation
 
