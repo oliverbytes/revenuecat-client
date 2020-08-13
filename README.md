@@ -39,7 +39,7 @@
     A 3rd Party RevenueCat Cross Platform Client made with Flutter! This app is not endorsed nor affiliated by RevenueCat. Logo belongs to RevenueCat.
     <br />
     <br />
-    <a href="https://github.com/nemoryoliver/revenuecat-client/revenuecat_client.apk">Download & Install APK</a>
+    <a href="https://github.com/nemoryoliver/revenuecat-client/blob/master/revenuecat_client.apk">Download & Install APK</a>
     ·
     <a href="https://github.com/nemoryoliver/revenuecat-client/issues">Report Bug</a>
     ·
@@ -77,7 +77,7 @@ We are very grateful that RevenueCat exists! It's now super easy to integrate In
 
 ### Built With
 Google Flutter SDK
-* [Bootstrap](https://flutter.dev)
+* [Flutter](https://flutter.dev)
 
 
 
@@ -90,7 +90,16 @@ Google Flutter SDK
 
 ### Installation
 
-1. Obtain your RevenueCat Authorization Token, fire up your development machine and open your favorite browser > Go to RevenueCat's website and make sure you're logged in already. Open the browser's Developer Console > Go to Network Tab > apply filter: api.revenuecat.com > open any logged traffic (some may not include the token, so take your time hunting) > Go to Headers Tab > then find the token in the Request Headers section. Copy and send it to your Test Device.
+1. Obtain your RevenueCat Authorization Token
+* fire up your development machine and open your favorite browser
+* Go to RevenueCat's website and make sure you're logged in already
+* Open the browser's Developer Console
+* Go to Network Tab
+* apply filter: api.revenuecat.com
+* open any logged traffic (some may not include the token, so take your time hunting)
+* Go to Headers Tab
+* then find the token in the Request Headers section
+* Copy and send it to your Test Device.
 2. Clone the repo
 ```sh
 git clone https://github.com/nemoryoliver/revenuecat-client.git
