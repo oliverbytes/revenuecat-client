@@ -291,7 +291,9 @@ class MainScreen extends StatelessWidget {
     );
 
     final _title = AppBar(
+      centerTitle: true,
       title: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
             'assets/images/revenuecat.png',
