@@ -116,7 +116,7 @@ class TransactionsScreen extends StatelessWidget {
       body: Obx(
         () => Visibility(
           visible: _uiController.ready.value,
-          replacement: BusyIndicator(),
+          replacement: Center(child: CircularProgressIndicator()),
           child:
               Opacity(opacity: _uiController.busy ? 0.5 : 1.0, child: _content),
         ),
