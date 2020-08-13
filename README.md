@@ -69,11 +69,22 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+### MOCKED SCREENSHOT
+
 [![RevenueCat Client][product-screenshot]](https://github.com/nemoryoliver/revenuecat-client)
 
 We are very grateful that RevenueCat exists! It's now super easy to integrate In App Purchases feature with minimal code required and no complexity. Yes, you can use the Web Dashboard to see everything, but we feel that an app is better especially on mobile. 
 
 * This app is Open Source, but please use at your own risk.
+
+### Features
+#### View Overview
+- filter by Date (previous & next buttons + date picker)
+- shows values per platform (iOS & Android)
+- shows last purchase, renewal, and trial conversion dates
+#### View Transactions
+- filter by Date (date picker)
+- search by Transaction ID
 
 ### Built With
 Google Flutter SDK
