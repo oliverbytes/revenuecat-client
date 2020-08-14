@@ -67,6 +67,10 @@ class MainScreen extends StatelessWidget {
           onPressed: _uiController.logOut,
           icon: Icon(Icons.exit_to_app),
         ),
+        IconButton(
+          onPressed: _uiController.about,
+          icon: Icon(Icons.info),
+        ),
       ],
     );
 

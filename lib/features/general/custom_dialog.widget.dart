@@ -7,6 +7,7 @@ class CustomDialog extends StatelessWidget {
   final String title;
   final String message;
   final Widget image;
+  final Widget child;
   final String button;
   final Function pressed;
   final Function dismissed;
@@ -16,6 +17,7 @@ class CustomDialog extends StatelessWidget {
     this.title,
     this.message, {
     this.image,
+    this.child,
     this.button,
     this.pressed,
     this.dismissed,
@@ -61,6 +63,10 @@ class CustomDialog extends StatelessWidget {
                     linkStyle: TextStyle(color: Colors.blue),
                   ),
                   const SizedBox(height: 20),
+                  if (child != null) ...[
+                    child,
+                    const SizedBox(height: 20),
+                  ],
                   if (button != null && pressed != null) ...[
                     const Divider(height: 0),
                     FlatButton(

@@ -7,3 +7,6 @@ const String kOverviewUrl =
 
 const String kTransactionsUrl =
     'https://api.revenuecat.com/v1/developers/me/transactions';
+
+const String kGithubProjectUrl =
+    'https://github.com/nemoryoliver/revenuecat-client';
