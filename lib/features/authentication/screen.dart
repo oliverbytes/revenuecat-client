@@ -1,3 +1,4 @@
+import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/authentication/screen.controller.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,10 @@ class AuthScreen extends StatelessWidget {
     final _details =
         "We are very grateful that RevenueCat exists! It's now easier to integrate In-App Purchase features in our apps with minimal code and less complexity. Yes, you can use RevenueCat's Web Dashboard to see everything, but come on, an app is better on mobile. ";
 
-    final _content = Padding(
-      padding: EdgeInsets.all(20),
-      child: Center(
+    final _content = Center(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        constraints: BoxConstraints(maxWidth: kWebMaxWidth),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,

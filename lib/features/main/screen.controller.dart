@@ -5,6 +5,7 @@ import 'package:app/features/authentication/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
 import 'package:app/features/overview/screen.controller.dart';
 import 'package:app/features/overview_day/screen.controller.dart';
+import 'package:app/features/transactions/screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -78,7 +79,7 @@ class MainScreenController extends GetxController {
       transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) => CustomDialog(
         'RevenueCat',
-        'An unonofficial client for RevenueCat. Not endorsed or affiliated at all.\n$version',
+        'An unonofficial client for RevenueCat.\nNot endorsed or affiliated at all.\n$version',
         image: Image.asset('assets/images/revenuecat.png', height: 50),
         child: Column(
           children: [
@@ -97,7 +98,7 @@ class MainScreenController extends GetxController {
             ),
             SizedBox(height: 10),
             Text(
-              'Credits to RevenueCat for their amazing service and to all contributors of the project!',
+              'Credits to RevenueCat for their amazing service\nand to all contributors of the project!',
               style: TextStyle(color: Colors.grey, fontSize: 13),
               textAlign: TextAlign.center,
             )
@@ -109,5 +110,12 @@ class MainScreenController extends GetxController {
     );
   }
 
-  void segmentedChanged(int index) => segmentedIndex.value = index;
+  void segmentedChanged(int index) {
+    if (index < 2) {
+      segmentedIndex.value = index;
+    } else {
+      // TRANSACTIONS
+      Get.to(TransactionsScreen());
+    }
+  }
 }

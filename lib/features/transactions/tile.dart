@@ -74,7 +74,7 @@ class TransactionsTile extends StatelessWidget {
         Text(
           NumberFormat.simpleCurrency().format(object.revenue),
           style: TextStyle(
-            fontSize: 17,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
             color: object.revenue > 0
                 ? Colors.lightGreen

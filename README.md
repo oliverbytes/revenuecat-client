@@ -39,6 +39,8 @@
     A 3rd Party RevenueCat Cross Platform Client made with Flutter! This app is not endorsed nor affiliated by RevenueCat. Logo & Trademarks belongs to RevenueCat.
     <br />
     <br />
+    <a href="https://revenuecat.surge.sh">Web Client: https://revenuecat.surge.sh</a>
+    ·
     <a href="https://github.com/nemoryoliver/revenuecat-client/releases">Download & Install for Android & MacOS</a>
     ·
     <a href="https://github.com/nemoryoliver/revenuecat-client/issues">Report Bug</a>
@@ -80,8 +82,8 @@ We are very grateful that RevenueCat exists! It's now easier to integrate In-App
 - iOS
 - Android
 - Mac OS
+- [Web](https://revenuecat.surge.sh)
 - Windows (soon)
-- Web (soon)
 
 ### Features
 #### View Overview
@@ -155,8 +157,8 @@ flutter run
 * Notifications
 * Search Transactions with User ID & Email
 * Charts for RC Premium Users
-* Web Support
-* Windows Support
+* Windows Support (if requested)
+* Light Mode (if requested)
 
 See the [open issues](https://github.com/nemoryoliver/revenuecat-client/issues) for a list of proposed features (and known issues).
 

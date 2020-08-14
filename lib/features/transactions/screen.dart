@@ -1,3 +1,4 @@
+import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/empty_placeholder.widget.dart';
 import 'package:app/features/transactions/screen.controller.dart';
@@ -13,21 +14,6 @@ class TransactionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _uiController = Get.put(TransactionsScreenController());
-
-    Widget _itemBuilder(context, index) {
-      final data = _uiController.data.value[index];
-
-      return AnimationConfiguration.staggeredList(
-        position: index,
-        duration: const Duration(milliseconds: 375),
-        child: SlideAnimation(
-          verticalOffset: 50.0,
-          child: FadeInAnimation(
-            child: TransactionsTile(data),
-          ),
-        ),
-      );
-    }
 
     final _title = AppBar(
       title: Text(
@@ -67,44 +53,62 @@ class TransactionsScreen extends StatelessWidget {
       ),
     );
 
-    final _content = Padding(
-      padding: EdgeInsets.only(top: 10),
-      child: AnimationLimiter(
-        child: Obx(
-          () => Column(
-            children: [
-              _searchBox,
-              Visibility(
-                visible: _uiController.count == 0,
-                replacement: Expanded(
-                  child: EasyRefresh(
-                    header: MaterialHeader(),
-                    footer: MaterialFooter(),
-                    onRefresh: _uiController.refresh,
-                    onLoad: _uiController.fetchNext,
-                    controller: _uiController.refreshController,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: _uiController.count,
-                      itemBuilder: _itemBuilder,
-                      separatorBuilder: (_, __) => Divider(),
+    Widget _itemBuilder(context, index) {
+      final data = _uiController.data.value[index];
+
+      return AnimationConfiguration.staggeredList(
+        position: index,
+        duration: const Duration(milliseconds: 375),
+        child: SlideAnimation(
+          verticalOffset: 50.0,
+          child: FadeInAnimation(
+            child: TransactionsTile(data),
+          ),
+        ),
+      );
+    }
+
+    final _content = Center(
+      child: Container(
+        padding: EdgeInsets.only(top: 10),
+        constraints: BoxConstraints(maxWidth: kWebMaxWidth),
+        child: AnimationLimiter(
+          child: Obx(
+            () => Column(
+              children: [
+                _searchBox,
+                Visibility(
+                  visible: _uiController.count == 0,
+                  replacement: Expanded(
+                    child: EasyRefresh(
+                      header: MaterialHeader(),
+                      footer: MaterialFooter(),
+                      onRefresh: _uiController.refresh,
+                      onLoad: _uiController.fetchNext,
+                      controller: _uiController.refreshController,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: _uiController.count,
+                        itemBuilder: _itemBuilder,
+                        separatorBuilder: (_, __) => Divider(),
+                      ),
+                    ),
+                  ),
+                  child: Expanded(
+                    child: EmptyPlaceholder(
+                      iconData: Icons.search,
+                      message: 'No Results',
+                      child: OutlineButton(
+                        child: Text('Refresh'),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: _uiController.fetch,
+                      ),
                     ),
                   ),
                 ),
-                child: Expanded(
-                  child: EmptyPlaceholder(
-                    iconData: Icons.search,
-                    message: 'No Results',
-                    child: OutlineButton(
-                      child: Text('Refresh'),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      onPressed: _uiController.fetch,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

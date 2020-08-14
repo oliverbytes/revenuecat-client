@@ -22,7 +22,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: kApptitle,
-      initialRoute: '/',
       home: MainScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

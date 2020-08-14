@@ -17,3 +17,5 @@ final String transactionsUrl = '$baseAPIUrl/developers/me/transactions';
 
 const String kGithubProjectUrl =
     'https://github.com/nemoryoliver/revenuecat-client';
+
+const kWebMaxWidth = 800.0;

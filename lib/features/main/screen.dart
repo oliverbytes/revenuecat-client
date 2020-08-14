@@ -17,31 +17,55 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _uiController = Get.put(MainScreenController());
 
-    final _content = EasyRefresh(
-      header: MaterialHeader(),
-      onRefresh: _uiController.refresh,
-      controller: _uiController.refreshController,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            SegmentedSwitch(
-              fontSize: 13,
-              onChanged: _uiController.segmentedChanged,
-              tabs: [
-                Tab(text: 'OVERVIEW'),
-                Tab(text: 'DAY'),
+    final _content = Center(
+      child: Container(
+        constraints: BoxConstraints(maxWidth: kWebMaxWidth),
+        padding: EdgeInsets.only(top: 20),
+        child: EasyRefresh(
+          header: MaterialHeader(),
+          onRefresh: _uiController.refresh,
+          controller: _uiController.refreshController,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SegmentedSwitch(
+                      fontSize: 13,
+                      onChanged: _uiController.segmentedChanged,
+                      tabs: [
+                        Tab(text: 'OVERVIEW'),
+                        Tab(text: 'DAY'),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 3, left: 0),
+                      child: FlatButton(
+                        child: Text(
+                          'TRANSACTIONS',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        onPressed: () => Get.to(TransactionsScreen()),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(height: 0),
+                Obx(
+                  () => Visibility(
+                    visible: _uiController.segmentedIndex.value == 0,
+                    child: OverviewScreen(),
+                    replacement: OverviewDayScreen(),
+                  ),
+                ),
               ],
             ),
-            Divider(height: 0),
-            Obx(
-              () => Visibility(
-                visible: _uiController.segmentedIndex.value == 0,
-                child: OverviewScreen(),
-                replacement: OverviewDayScreen(),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -77,10 +101,10 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: _title,
       body: _content,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(TransactionsScreen()),
-        child: Icon(Icons.payment),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Get.to(TransactionsScreen()),
+      //   child: Icon(Icons.payment),
+      // ),
     );
   }
 }

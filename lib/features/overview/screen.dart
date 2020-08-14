@@ -89,7 +89,7 @@ class OverviewScreen extends StatelessWidget {
           visible: _uiController.busy,
           replacement: _content,
           child: kIsWeb
-              ? Center(child: CircularProgressIndicator())
+              ? Opacity(opacity: 0.5, child: _content)
               : Shimmer.fromColors(
                   child: _content,
                   baseColor: Colors.grey.withOpacity(0.5),
