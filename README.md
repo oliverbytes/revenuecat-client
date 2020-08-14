@@ -151,6 +151,12 @@ flutter run
 <!-- ROADMAP -->
 ## Roadmap
 
+* Notifications
+* Search Transactions with User ID & Email
+* Charts for RC Premium Users
+* Web Support
+* Windows Support
+
 See the [open issues](https://github.com/nemoryoliver/revenuecat-client/issues) for a list of proposed features (and known issues).
 
 
@@ -194,16 +200,16 @@ Project Link: [https://github.com/nemoryoliver/revenuecat-client](https://github
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/nemoryoliver/revenuecat-client.svg?style=flat-square
 [contributors-url]: https://github.com/nemoryoliver/revenuecat-client/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/nemoryoliver/revenuecat-client.svg?style=flat-square
 [forks-url]: https://github.com/nemoryoliver/revenuecat-client/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/nemoryoliver/revenuecat-client.svg?style=flat-square
 [stars-url]: https://github.com/nemoryoliver/revenuecat-client/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/nemoryoliver/revenuecat-client.svg?style=flat-square
 [issues-url]: https://github.com/nemoryoliver/revenuecat-client/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
+[license-shield]: https://img.shields.io/github/license/nemoryoliver/revenuecat-client.svg?style=flat-square
 [license-url]: https://github.com/nemoryoliver/revenuecat-client/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/nemoryoliver
 [product-screenshot]: images/screenshots.jpg

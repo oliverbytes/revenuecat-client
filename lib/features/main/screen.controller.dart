@@ -72,8 +72,8 @@ class MainScreenController extends GetxController {
     Get.generalDialog(
       transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) => CustomDialog(
-        'RevenueCat $version',
-        'An unonofficial client for RevenueCat. Not endorsed or affiliated at all.',
+        'RevenueCat',
+        'An unonofficial client for RevenueCat. Not endorsed or affiliated at all.\n$version',
         image: Image.asset('assets/images/revenuecat.png', height: 50),
         child: Column(
           children: [
@@ -94,10 +94,11 @@ class MainScreenController extends GetxController {
             Text(
               'Credits to RevenueCat for their amazing service and to all contributors of the project!',
               style: TextStyle(color: Colors.grey, fontSize: 13),
+              textAlign: TextAlign.center,
             )
           ],
         ),
-        button: 'View Open Source Project',
+        button: 'View Project in GitHub',
         pressed: () => launch(kGithubProjectUrl),
       ),
     );
