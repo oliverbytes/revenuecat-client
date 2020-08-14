@@ -2,7 +2,6 @@ import 'package:app/core/utils/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 
 final logger = initLogger("HiveManager");
 
@@ -23,13 +22,8 @@ class HiveManager {
   }
 
   static Future<void> init() async {
-    final dir = await getApplicationDocumentsDirectory();
-
-    Hive.init("${dir.path}/hive/");
-
     _persistence = await Hive.openBox('persistence');
     persistenceListenable = Hive.box('persistence').listenable();
-
     logger.w("init");
   }
 }

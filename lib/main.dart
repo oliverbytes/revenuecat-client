@@ -29,10 +29,8 @@ class App extends StatelessWidget {
         accentColor: Colors.redAccent,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.transparent,
-        appBarTheme: AppBarTheme(
-          color: Colors.grey.withOpacity(0.1),
-        ),
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(color: Colors.grey.withOpacity(0.1)),
       ),
     );
   }

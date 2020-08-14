@@ -39,7 +39,7 @@ class AuthScreenController extends BaseController {
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (_, __, ___) => CustomDialog(
           'Welcome',
-          "We hope you'll enjoy this RevenueCat Client developed by Nemory Studios.",
+          "You're now logged in! Enjoy!",
           image: Image.asset('assets/images/revenuecat.png', height: 100),
         ),
       );
