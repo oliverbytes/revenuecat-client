@@ -1,6 +1,6 @@
 name: app
 publish_to: "none"
-version: 1.0.0+1 # Used for iOS archiving only
+version: 1.0.1+1 # Used for iOS archiving only
 
 environment:
   sdk: ">=2.8.0 <3.0.0" # DART SDK VERSION
