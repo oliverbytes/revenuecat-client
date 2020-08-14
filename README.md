@@ -75,6 +75,13 @@
 
 We are very grateful that RevenueCat exists! It's now easier to integrate In-App Purchase features in our apps with minimal code and less complexity. Yes, you can use RevenueCat's Web Dashboard to see everything, but come on, an app is better on mobile. 
 
+### Supported Platforms
+- iOS
+- Android
+- Mac OS
+- Windows (soon)
+- Web (soon)
+
 ### Features
 #### View Overview
 - filter by Date (previous day & next day buttons + date picker)
@@ -118,11 +125,19 @@ Google Flutter SDK
 ```sh
 git clone https://github.com/nemoryoliver/revenuecat-client.git
 ```
-3. Install packages dependencies
+3. Switch Flutter Channel to dev or master
+```
+flutter channel dev
+```
+4. Enable desktop support
+```
+flutter config --enable-macos-desktop
+```
+5. Install packages dependencies
 ```
 flutter pub get
 ```
-4. Run
+6. Run
 ```
 flutter run
 ```
