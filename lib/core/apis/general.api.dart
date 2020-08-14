@@ -17,11 +17,7 @@ class GeneralAPI extends BaseAPI {
     Response<String> response;
 
     final options = BaseOptions(
-      headers: {
-        'Authorization': token,
-        'Host': 'api.revenuecat.com',
-        'Origin': 'https://app.revenuecat.com',
-      },
+      headers: {'Authorization': token},
       method: 'GET',
       responseType: ResponseType.json,
       contentType: 'application/json',
@@ -30,7 +26,7 @@ class GeneralAPI extends BaseAPI {
     );
 
     try {
-      response = await Dio(options).get<String>(kOverviewUrl);
+      response = await Dio(options).get<String>(overviewUrl);
       logger.i('status: ${response.statusCode}, data: ${response.data}');
       if (response.statusCode == 200) return true;
     } on DioError catch (e) {
@@ -70,7 +66,7 @@ class GeneralAPI extends BaseAPI {
     final jsonMap = await baseRequest(
       function: _function,
       headers: baseHeaders,
-      url: kOverviewUrl,
+      url: overviewUrl,
     );
 
     return Overview.fromJson(jsonMap);
@@ -101,7 +97,7 @@ class GeneralAPI extends BaseAPI {
     final jsonMap = await baseRequest(
       function: _function,
       headers: baseHeaders,
-      url: kTransactionsUrl,
+      url: transactionsUrl,
       params: params,
     );
 

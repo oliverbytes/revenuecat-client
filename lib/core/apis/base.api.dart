@@ -9,11 +9,8 @@ import 'package:get/get.dart';
 final logger = initLogger('BaseAPI');
 
 class BaseAPI extends GetxController {
-  Map<String, String> get baseHeaders => {
-        'Authorization': HiveManager.clientToken,
-        'Host': 'api.revenuecat.com',
-        'Origin': 'https://app.revenuecat.com',
-      };
+  Map<String, String> get baseHeaders =>
+      {'Authorization': HiveManager.clientToken};
 
   Map<String, String> get baseParams => {};
 

@@ -1,10 +1,11 @@
+import 'package:app/core/managers/hive.manager.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
-import 'package:app/core/managers/hive.manager.dart';
 import 'package:app/features/authentication/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
 import 'package:app/features/overview/screen.controller.dart';
 import 'package:app/features/overview_day/screen.controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -66,8 +67,12 @@ class MainScreenController extends GetxController {
   }
 
   void about() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    final version = "v${packageInfo.version}+${packageInfo.buildNumber}";
+    String version = "";
+
+    if (!kIsWeb) {
+      final packageInfo = await PackageInfo.fromPlatform();
+      version = "v${packageInfo.version}+${packageInfo.buildNumber}";
+    }
 
     Get.generalDialog(
       transitionDuration: const Duration(milliseconds: 200),

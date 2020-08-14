@@ -32,95 +32,101 @@ class TransactionsTile extends StatelessWidget {
         )
         .toList();
 
+    final _title = Text(
+      object.app.name,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+    );
+
+    final _subTitle = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          object.productIdentifier,
+          style: _subTitleStyle,
+          overflow: TextOverflow.ellipsis,
+        ),
+        if (object.expiresDate != null) ...[
+          Text(
+            'Expires: ${DateFormat.yMMMEd().add_jm().format(object.expiresDate)}',
+            style: _subTitleStyle,
+          ),
+        ],
+        SizedBox(height: 5),
+        Wrap(
+          children: [
+            Icon(
+              object.platform.name == 'android'
+                  ? Icons.android
+                  : Entypo.app_store,
+              color: object.platform.color,
+              size: 13,
+            ),
+            SizedBox(width: 5),
+            ..._badges,
+          ],
+        ),
+      ],
+    );
+
+    final _trailing = Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Text(
+          NumberFormat.simpleCurrency().format(object.revenue),
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: object.revenue > 0
+                ? Colors.lightGreen
+                : object.revenue < 0 ? Colors.red : Colors.grey,
+          ),
+        ),
+        Text(
+          Utils.getTimeAgo(dateTime: object.purchaseDate, short: true) + ' ago',
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        Text(
+          DateFormat.jm().format(object.purchaseDate),
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+      ],
+    );
+
+    void _onTap() async {
+      List<BaseSelection> selections = [
+        BaseSelection(
+            action: SelectionAction.COPY_TRANSACTION_ID,
+            title: 'Copy Store Transaction ID',
+            icon: const Icon(Icons.content_copy)),
+        BaseSelection(
+            action: SelectionAction.COPY_USER_ID,
+            title: 'Copy RC User ID',
+            icon: const Icon(Icons.content_copy)),
+        BaseSelection(
+            action: SelectionAction.COPY_PRODUCT_ID,
+            title: 'Copy Product ID',
+            icon: const Icon(Icons.content_copy)),
+      ];
+
+      final BaseSelection selected = await Utils.showSelectionSheet(selections);
+
+      if (selected != null) {
+        if (selected.action == SelectionAction.COPY_TRANSACTION_ID) {
+          Utils.copyToClipboard(text: object.storeTransactionIdentifier);
+        } else if (selected.action == SelectionAction.COPY_USER_ID) {
+          Utils.copyToClipboard(text: object.subscriberId);
+        } else if (selected.action == SelectionAction.COPY_PRODUCT_ID) {
+          Utils.copyToClipboard(text: object.productIdentifier);
+        }
+      }
+    }
+
     return ListTile(
       leading: Image.asset(object.app.image, height: 40),
-      title: Text(
-        object.app.name,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            object.productIdentifier,
-            style: _subTitleStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-          if (object.expiresDate != null) ...[
-            Text(
-              'Expires: ${DateFormat.yMMMEd().add_jm().format(object.expiresDate)}',
-              style: _subTitleStyle,
-            ),
-          ],
-          SizedBox(height: 5),
-          Wrap(
-            children: [
-              Icon(
-                object.platform.name == 'android'
-                    ? Icons.android
-                    : Entypo.app_store,
-                color: object.platform.color,
-                size: 13,
-              ),
-              SizedBox(width: 5),
-              ..._badges,
-            ],
-          ),
-        ],
-      ),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            NumberFormat.simpleCurrency().format(object.revenue),
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: object.revenue > 0
-                  ? Colors.lightGreen
-                  : object.revenue < 0 ? Colors.red : Colors.grey,
-            ),
-          ),
-          Text(
-            Utils.getTimeAgo(dateTime: object.purchaseDate, short: true) +
-                ' ago',
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-          Text(
-            DateFormat.jm().format(object.purchaseDate),
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          ),
-        ],
-      ),
-      onTap: () async {
-        List<BaseSelection> selections = [
-          BaseSelection(
-              action: SelectionAction.COPY_TRANSACTION_ID,
-              title: 'Copy Store Transaction ID',
-              icon: const Icon(Icons.content_copy)),
-          BaseSelection(
-              action: SelectionAction.COPY_USER_ID,
-              title: 'Copy RC User ID',
-              icon: const Icon(Icons.content_copy)),
-          BaseSelection(
-              action: SelectionAction.COPY_PRODUCT_ID,
-              title: 'Copy Product ID',
-              icon: const Icon(Icons.content_copy)),
-        ];
-
-        final BaseSelection selected =
-            await Utils.showSelectionSheet(selections);
-
-        if (selected != null) {
-          if (selected.action == SelectionAction.COPY_TRANSACTION_ID) {
-            Utils.copyToClipboard(text: object.storeTransactionIdentifier);
-          } else if (selected.action == SelectionAction.COPY_USER_ID) {
-            Utils.copyToClipboard(text: object.subscriberId);
-          } else if (selected.action == SelectionAction.COPY_PRODUCT_ID) {
-            Utils.copyToClipboard(text: object.productIdentifier);
-          }
-        }
-      },
+      title: _title,
+      subtitle: _subTitle,
+      trailing: _trailing,
+      onTap: _onTap,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:app/core/utils/logger.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
@@ -198,11 +199,13 @@ class OverviewDayScreen extends StatelessWidget {
         () => Visibility(
           visible: _uiController.busy,
           replacement: _content,
-          child: Shimmer.fromColors(
-            child: _content,
-            baseColor: Colors.grey.withOpacity(0.5),
-            highlightColor: Colors.white,
-          ),
+          child: kIsWeb
+              ? Center(child: CircularProgressIndicator())
+              : Shimmer.fromColors(
+                  child: _content,
+                  baseColor: Colors.grey.withOpacity(0.5),
+                  highlightColor: Colors.white,
+                ),
         ),
       ),
     );
