@@ -71,7 +71,8 @@
 
 ### MOCKED SCREENSHOT
 
-[![RevenueCat Client][product-screenshot]](https://github.com/nemoryoliver/revenuecat-client)
+[![RevenueCat Mobile App][screenshots-mobile]](https://github.com/nemoryoliver/revenuecat-client)
+[![RevenueCat Desktop App][screenshots-desktop]](https://github.com/nemoryoliver/revenuecat-client)
 
 We are very grateful that RevenueCat exists! It's now easier to integrate In-App Purchase features in our apps with minimal code and less complexity. Yes, you can use RevenueCat's Web Dashboard to see everything, but come on, an app is better on mobile. 
 
@@ -212,4 +213,5 @@ Project Link: [https://github.com/nemoryoliver/revenuecat-client](https://github
 [license-url]: https://github.com/nemoryoliver/revenuecat-client/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/nemoryoliver
-[product-screenshot]: images/screenshots.jpg
+[screenshots-mobile]: images/screenshots_mobile.jpg
+[screenshots-desktop]: images/screenshots_desktop.jpg
