@@ -1,9 +1,11 @@
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/authentication/screen.controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final logger = initLogger('AuthScreen');
@@ -119,13 +121,22 @@ class AuthScreen extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         body: Obx(
-          () =>
-              Opacity(opacity: _uiController.busy ? 0.5 : 1.0, child: _content),
-        ),
-        bottomNavigationBar: Obx(
           () => Visibility(
             visible: _uiController.busy,
-            child: LinearProgressIndicator(),
+            replacement: _content,
+            child: kIsWeb
+                ? Opacity(opacity: 0.5, child: _content)
+                : Center(
+                    child: SizedBox(
+                      height: Get.mediaQuery.size.height,
+                      width: Get.mediaQuery.size.height,
+                      child: Shimmer.fromColors(
+                        child: _content,
+                        baseColor: Colors.grey.withOpacity(0.5),
+                        highlightColor: Colors.white,
+                      ),
+                    ),
+                  ),
           ),
         ),
       ),

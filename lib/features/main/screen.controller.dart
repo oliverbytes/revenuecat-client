@@ -42,6 +42,7 @@ class MainScreenController extends GetxController {
   void onInit() {
     Get.put(OverviewScreenController());
     Get.put(OverviewDayScreenController());
+    Get.put(TransactionsScreenController());
 
     if (HiveManager.clientToken.isNotEmpty) refresh();
     super.onInit();

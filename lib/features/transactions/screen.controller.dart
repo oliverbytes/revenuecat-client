@@ -32,7 +32,6 @@ class TransactionsScreenController extends BaseController {
   void onInit() {
     final now = DateTime.now();
     date.value = DateTime(now.year, now.month, now.day, 23, 59, 59);
-    refresh();
     super.onInit();
   }
 

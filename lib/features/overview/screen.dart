@@ -14,7 +14,7 @@ final logger = initLogger('OverviewScreen');
 class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _uiController = Get.put(OverviewScreenController());
+    final OverviewScreenController _uiController = Get.find();
 
     final _content = Center(
       child: Container(
@@ -132,53 +132,18 @@ class OverviewScreen extends StatelessWidget {
         ),
         child: kIsWeb
             ? Opacity(opacity: 0.5, child: _content)
-            : SizedBox(
-                height: Get.mediaQuery.size.height,
-                width: Get.mediaQuery.size.height,
-                child: Shimmer.fromColors(
-                  child: _content,
-                  baseColor: Colors.grey.withOpacity(0.5),
-                  highlightColor: Colors.white,
+            : Center(
+                child: SizedBox(
+                  height: Get.mediaQuery.size.height,
+                  width: Get.mediaQuery.size.height,
+                  child: Shimmer.fromColors(
+                    child: _content,
+                    baseColor: Colors.grey.withOpacity(0.5),
+                    highlightColor: Colors.white,
+                  ),
                 ),
               ),
       ),
     );
-
-    // return SizedBox(
-    //   height: Get.mediaQuery.size.height,
-    //   width: Get.mediaQuery.size.height,
-    //   child: Obx(
-    //     () => Visibility(
-    //       visible: _uiController.busy,
-    //       replacement: Visibility(
-    //         visible: _uiController.error,
-    //         child: EmptyPlaceholder(
-    //           iconData: Icons.error_outline,
-    //           message: _uiController.message.value,
-    //           child: OutlineButton(
-    //             child: Text('Refresh'),
-    //             shape: RoundedRectangleBorder(
-    //                 borderRadius: BorderRadius.circular(20)),
-    //             onPressed: _uiController.fetch,
-    //           ),
-    //         ),
-    //         replacement: Scaffold(
-    //           floatingActionButton: FloatingActionButton(
-    //             onPressed: _uiController.fetch,
-    //             child: Icon(Icons.refresh),
-    //           ),
-    //           body: _content,
-    //         ),
-    //       ),
-    //       child: kIsWeb
-    //           ? Opacity(opacity: 0.5, child: _content)
-    //           : Shimmer.fromColors(
-    //               child: _content,
-    //               baseColor: Colors.grey.withOpacity(0.5),
-    //               highlightColor: Colors.white,
-    //             ),
-    //     ),
-    //   ),
-    // );
   }
 }

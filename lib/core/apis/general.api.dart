@@ -17,8 +17,6 @@ class GeneralAPI extends BaseAPI {
     if (!await internetConnected())
       return Left(ApiError(code: 0, message: kInternetError));
 
-    Response<String> response;
-
     final options = BaseOptions(
       headers: {
         'Authorization': token,
@@ -32,7 +30,7 @@ class GeneralAPI extends BaseAPI {
     );
 
     try {
-      response = await Dio(options).get<String>(overviewUrl);
+      final response = await Dio(options).get(overviewUrl);
       logger.i('status: ${response.statusCode}, data: ${response.data}');
       return Right(true);
     } on DioError catch (e) {
