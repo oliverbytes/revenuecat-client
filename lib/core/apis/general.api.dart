@@ -17,7 +17,10 @@ class GeneralAPI extends BaseAPI {
     Response<String> response;
 
     final options = BaseOptions(
-      headers: {'Authorization': token},
+      headers: {
+        'Authorization': token,
+        'X-Requested-With': 'XMLHttpRequest',
+      },
       method: 'GET',
       responseType: ResponseType.json,
       contentType: 'application/json',
