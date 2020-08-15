@@ -3,6 +3,7 @@ import 'package:app/core/controllers/base.controller.dart';
 import 'package:app/core/models/transactions.model.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +14,7 @@ class OverviewDayScreenController extends BaseController {
 
   // VARIABLES
   final _api = Get.find<GeneralAPI>();
+  final refreshController = EasyRefreshController();
 
   final List<Transaction> overviewTransactions = [];
   DateTime today;
@@ -114,22 +116,6 @@ class OverviewDayScreenController extends BaseController {
     fetch();
   }
 
-  void selectDate(BuildContext context) async {
-    final selectedDate = await showDatePicker(
-      context: context,
-      initialDate: startDate.value,
-      firstDate: DateTime(2007),
-      lastDate: DateTime.now(),
-    );
-
-    if (selectedDate == null) return;
-
-    startDate.value = DateTime(
-        selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59);
-
-    fetch();
-  }
-
   Future<void> fetch() async {
     this.busyState();
 
@@ -218,6 +204,22 @@ class OverviewDayScreenController extends BaseController {
     lastConversion.value = _lastConversion;
 
     this.idleState();
+  }
+
+  void selectDate(BuildContext context) async {
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: startDate.value,
+      firstDate: DateTime(2007),
+      lastDate: DateTime.now(),
+    );
+
+    if (selectedDate == null) return;
+
+    startDate.value = DateTime(
+        selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59);
+
+    fetch();
   }
 
   void _clear() {

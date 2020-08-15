@@ -26,7 +26,7 @@ class AuthScreenController extends BaseController {
 
   void validate() async {
     this.busyState();
-    final token = editingController.text;
+    final token = editingController.text.trim();
     final result = await GeneralAPI.to.isTokenValid(token);
 
     result.fold((error) {
@@ -45,15 +45,6 @@ class AuthScreenController extends BaseController {
         await HiveManager.setClientToken(token);
         MainScreenController.to.refresh();
         Get.back(result: true);
-
-        Get.generalDialog(
-          transitionDuration: const Duration(milliseconds: 200),
-          pageBuilder: (_, __, ___) => CustomDialog(
-            'Welcome',
-            "You're now logged in! Enjoy!",
-            image: Image.asset('assets/images/revenuecat.png', height: 100),
-          ),
-        );
       } else {
         this.errorState();
         Get.generalDialog(

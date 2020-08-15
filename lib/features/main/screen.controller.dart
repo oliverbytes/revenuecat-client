@@ -4,7 +4,10 @@ import 'package:app/core/utils/logger.dart';
 import 'package:app/features/authentication/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
 import 'package:app/features/overview/screen.controller.dart';
+import 'package:app/features/overview/screen.dart';
 import 'package:app/features/overview_day/screen.controller.dart';
+import 'package:app/features/overview_day/screen.dart';
+import 'package:app/features/transactions/screen.controller.dart';
 import 'package:app/features/transactions/screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +23,17 @@ class MainScreenController extends GetxController {
   static MainScreenController get to => Get.find();
 
   // VARIABLES
+  final pageController = PageController();
   final refreshController = EasyRefreshController();
 
+  final List<Widget> screens = [
+    OverviewScreen(),
+    OverviewDayScreen(),
+    TransactionsScreen(),
+  ];
+
   // PROPERTIES
-  final segmentedIndex = 0.obs;
+  final pageIndex = 0.obs;
 
   // GETTERS
 
@@ -48,6 +58,7 @@ class MainScreenController extends GetxController {
   Future<void> refresh() async {
     await OverviewScreenController.to.fetch();
     await OverviewDayScreenController.to.fetch();
+    await TransactionsScreenController.to.fetch();
     refreshController.finishRefresh();
   }
 
@@ -57,7 +68,7 @@ class MainScreenController extends GetxController {
       pageBuilder: (_, __, ___) => CustomDialog(
         'Logout?',
         'Are you sure you want to logout?',
-        image: Image.asset('assets/images/revenuecat.png', height: 100),
+        image: Icon(Icons.exit_to_app, size: 100),
         button: 'Log Out',
         pressed: () {
           HiveManager.setClientToken('');
@@ -79,7 +90,7 @@ class MainScreenController extends GetxController {
       transitionDuration: const Duration(milliseconds: 200),
       pageBuilder: (_, __, ___) => CustomDialog(
         'RevenueCat',
-        'An unonofficial client for RevenueCat.\nNot endorsed or affiliated at all.\n$version',
+        'An unonofficial client for RevenueCat.\nNot endorsed or affiliated at all.\n$version\n\nOpen Source Project\n$kGithubProjectUrl',
         image: Image.asset('assets/images/revenuecat.png', height: 50),
         child: Column(
           children: [
@@ -104,18 +115,14 @@ class MainScreenController extends GetxController {
             )
           ],
         ),
-        button: 'View Project in GitHub',
-        pressed: () => launch(kGithubProjectUrl),
+        button: 'Log Out',
+        pressed: logOut,
       ),
     );
   }
 
-  void segmentedChanged(int index) {
-    if (index < 2) {
-      segmentedIndex.value = index;
-    } else {
-      // TRANSACTIONS
-      Get.to(TransactionsScreen());
-    }
+  void pageChanged(index) {
+    pageIndex.value = index;
+    pageController.jumpToPage(index);
   }
 }

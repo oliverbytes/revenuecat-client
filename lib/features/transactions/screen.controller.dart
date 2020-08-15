@@ -11,6 +11,8 @@ import 'package:intl/intl.dart';
 final logger = initLogger("TransactionsScreenController");
 
 class TransactionsScreenController extends BaseController {
+  static TransactionsScreenController get to => Get.find();
+
   // VARIABLES
   final _api = Get.find<GeneralAPI>();
   final refreshController = EasyRefreshController();
@@ -58,7 +60,6 @@ class TransactionsScreenController extends BaseController {
   }
 
   Future<void> fetchNext() async {
-    this.busyState();
     final lastTimestamp = data.value.last.purchaseDate.millisecondsSinceEpoch;
 
     final result =
@@ -68,10 +69,7 @@ class TransactionsScreenController extends BaseController {
     result.fold(
       (error) =>
           this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
-      (transactions) {
-        data.addAll(transactions);
-        this.idleState();
-      },
+      (transactions) => data.addAll(transactions),
     );
   }
 

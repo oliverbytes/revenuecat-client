@@ -3,10 +3,12 @@ import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/empty_placeholder.widget.dart';
 import 'package:app/features/transactions/screen.controller.dart';
 import 'package:app/features/transactions/tile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 final logger = initLogger('TransactionsScreen');
 
@@ -14,20 +16,6 @@ class TransactionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _uiController = Get.put(TransactionsScreenController());
-
-    final _title = AppBar(
-      title: Text(
-        'Transactions',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-      actions: [
-        FlatButton.icon(
-          icon: Icon(Icons.date_range),
-          label: Obx(() => Text(_uiController.sinceDate)),
-          onPressed: () => _uiController.selectDate(context),
-        ),
-      ],
-    );
 
     final _searchBox = Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -39,7 +27,7 @@ class TransactionsScreen extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w700),
           onSubmitted: (text) => _uiController.search(text),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.zero,
+            contentPadding: EdgeInsets.only(right: 15),
             filled: true,
             prefixIcon: const Icon(Icons.search, color: Colors.grey),
             hintStyle: const TextStyle(fontWeight: FontWeight.w700),
@@ -61,9 +49,7 @@ class TransactionsScreen extends StatelessWidget {
         duration: const Duration(milliseconds: 375),
         child: SlideAnimation(
           verticalOffset: 50.0,
-          child: FadeInAnimation(
-            child: TransactionsTile(data),
-          ),
+          child: FadeInAnimation(child: TransactionsTile(data)),
         ),
       );
     }
@@ -76,7 +62,16 @@ class TransactionsScreen extends StatelessWidget {
           child: Obx(
             () => Column(
               children: [
-                _searchBox,
+                Row(
+                  children: [
+                    Expanded(child: _searchBox),
+                    FlatButton.icon(
+                      icon: Icon(Icons.date_range),
+                      label: Obx(() => Text(_uiController.sinceDate)),
+                      onPressed: () => _uiController.selectDate(context),
+                    )
+                  ],
+                ),
                 Visibility(
                   visible: _uiController.count == 0,
                   replacement: Expanded(
@@ -114,13 +109,13 @@ class TransactionsScreen extends StatelessWidget {
       ),
     );
 
-    return Scaffold(
-      appBar: _title,
-      body: Obx(
+    return SizedBox(
+      height: Get.mediaQuery.size.height,
+      width: Get.mediaQuery.size.height,
+      child: Obx(
         () => Visibility(
-          visible: _uiController.ready.value,
-          replacement: Center(child: CircularProgressIndicator()),
-          child: Visibility(
+          visible: _uiController.busy,
+          replacement: Visibility(
             visible: _uiController.error,
             child: EmptyPlaceholder(
               iconData: Icons.error_outline,
@@ -132,19 +127,49 @@ class TransactionsScreen extends StatelessWidget {
                 onPressed: _uiController.fetch,
               ),
             ),
-            replacement: Opacity(
-              opacity: _uiController.busy ? 0.5 : 1.0,
-              child: _content,
+            replacement: Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: _uiController.fetch,
+                child: Icon(Icons.refresh),
+              ),
+              body: _content,
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: Obx(
-        () => Visibility(
-          visible: _uiController.busy,
-          child: LinearProgressIndicator(),
+          child: kIsWeb
+              ? Opacity(opacity: 0.5, child: _content)
+              : Shimmer.fromColors(
+                  child: _content,
+                  baseColor: Colors.grey.withOpacity(0.5),
+                  highlightColor: Colors.white,
+                ),
         ),
       ),
     );
+
+    // return Scaffold(
+    //   body: Obx(
+    //     () => Visibility(
+    //       visible: _uiController.ready.value,
+    //       replacement: Center(child: CircularProgressIndicator()),
+    //       child: Visibility(
+    //         visible: _uiController.error,
+    //         child: EmptyPlaceholder(
+    //           iconData: Icons.error_outline,
+    //           message: _uiController.message.value,
+    //           child: OutlineButton(
+    //             child: Text('Refresh'),
+    //             shape: RoundedRectangleBorder(
+    //                 borderRadius: BorderRadius.circular(20)),
+    //             onPressed: _uiController.fetch,
+    //           ),
+    //         ),
+    //         replacement: Opacity(
+    //           opacity: _uiController.busy ? 0.5 : 1.0,
+    //           child: _content,
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

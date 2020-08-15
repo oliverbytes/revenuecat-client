@@ -2,6 +2,7 @@ import 'package:app/core/apis/general.api.dart';
 import 'package:app/core/controllers/base.controller.dart';
 import 'package:app/core/models/overview.model.dart';
 import 'package:app/core/utils/logger.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -12,6 +13,7 @@ class OverviewScreenController extends BaseController {
 
   // VARIABLES
   final _api = Get.find<GeneralAPI>();
+  final refreshController = EasyRefreshController();
 
   // PROPERTIES
   final overview = Overview().obs;
