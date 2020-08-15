@@ -5,8 +5,7 @@ enum BaseState { Idle, Busy, Error }
 class BaseController extends GetxController {
   // PROPERTIES
   final state = BaseState.Idle.obs;
-  final errorMessage = ''.obs;
-  final busyMessage = ''.obs;
+  final message = ''.obs;
 
   // GETTERS
   bool get busy => state.value == BaseState.Busy;
@@ -15,20 +14,20 @@ class BaseController extends GetxController {
   // FUNCTIONS
 
   // set the error state and message
-  void errorState({final String message = ''}) {
+  void errorState({final String text = ''}) {
     state.value = BaseState.Error;
-    errorMessage.value = message;
+    message.value = text;
   }
 
   // set the busy state and message
-  void busyState({final String message = ''}) {
+  void busyState({final String text = ''}) {
     state.value = BaseState.Busy;
-    busyMessage.value = message;
+    message.value = text;
   }
 
   // set the busy state and message
-  void idleState({final String message}) {
+  void idleState({final String text = ''}) {
     state.value = BaseState.Idle;
-    busyMessage.value = message ?? 'Loading...';
+    message.value = text;
   }
 }

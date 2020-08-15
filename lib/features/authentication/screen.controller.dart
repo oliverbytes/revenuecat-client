@@ -27,22 +27,44 @@ class AuthScreenController extends BaseController {
   void validate() async {
     this.busyState();
     final token = editingController.text;
-    final valid = await GeneralAPI.to.isTokenValid(token);
-    this.idleState();
+    final result = await GeneralAPI.to.isTokenValid(token);
 
-    if (valid) {
-      await HiveManager.setClientToken(token);
-      MainScreenController.to.refresh();
-      Get.back(result: true);
-
+    result.fold((error) {
+      this.errorState();
       Get.generalDialog(
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (_, __, ___) => CustomDialog(
-          'Welcome',
-          "You're now logged in! Enjoy!",
-          image: Image.asset('assets/images/revenuecat.png', height: 100),
+          'Token Error',
+          'API Error: ${error.code}!\n${error.message}',
+          image: Icon(Icons.error_outline, size: 50),
         ),
       );
-    }
+    }, (valid) async {
+      if (valid) {
+        this.idleState();
+        await HiveManager.setClientToken(token);
+        MainScreenController.to.refresh();
+        Get.back(result: true);
+
+        Get.generalDialog(
+          transitionDuration: const Duration(milliseconds: 200),
+          pageBuilder: (_, __, ___) => CustomDialog(
+            'Welcome',
+            "You're now logged in! Enjoy!",
+            image: Image.asset('assets/images/revenuecat.png', height: 100),
+          ),
+        );
+      } else {
+        this.errorState();
+        Get.generalDialog(
+          transitionDuration: const Duration(milliseconds: 200),
+          pageBuilder: (_, __, ___) => CustomDialog(
+            'Token Error',
+            'Your token is invalid',
+            image: Icon(Icons.error_outline, size: 50),
+          ),
+        );
+      }
+    });
   }
 }

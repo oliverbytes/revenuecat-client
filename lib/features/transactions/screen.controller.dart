@@ -1,7 +1,7 @@
 import 'package:app/core/apis/general.api.dart';
 import 'package:app/core/controllers/base.controller.dart';
-import 'package:app/core/utils/logger.dart';
 import 'package:app/core/models/transactions.model.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
@@ -43,29 +43,53 @@ class TransactionsScreenController extends BaseController {
 
   Future<void> fetch() async {
     this.busyState();
-    data.value = await _api.transactions(
+    final result = await _api.transactions(
         startTimestamp: date.value.millisecondsSinceEpoch, limit: 20);
     refreshController.finishRefresh();
-    this.idleState();
+
+    result.fold(
+      (error) =>
+          this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
+      (transactions) {
+        data.value = transactions;
+        this.idleState();
+      },
+    );
   }
 
   Future<void> fetchNext() async {
     this.busyState();
     final lastTimestamp = data.value.last.purchaseDate.millisecondsSinceEpoch;
-    final transactions =
+
+    final result =
         await _api.transactions(startTimestamp: lastTimestamp, limit: 20);
-    data.addAll(transactions);
     refreshController.finishLoad();
-    this.idleState();
+
+    result.fold(
+      (error) =>
+          this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
+      (transactions) {
+        data.addAll(transactions);
+        this.idleState();
+      },
+    );
   }
 
   Future<void> search(String text) async {
     if (text.isEmpty) return;
 
     this.busyState();
-    data.value = await _api.transactions(limit: 20, query: text);
+    final result = await _api.transactions(limit: 20, query: text);
     refreshController.finishRefresh();
-    this.idleState();
+
+    result.fold(
+      (error) =>
+          this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
+      (transactions) {
+        data.value = transactions;
+        this.idleState();
+      },
+    );
   }
 
   void selectDate(BuildContext context) async {

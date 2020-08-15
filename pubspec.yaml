@@ -32,6 +32,7 @@ dependencies:
   logger: 0.9.2
   intl: 0.16.1
   supercharged: 1.9.0
+  either_option: 1.0.6
   #UI
   flutter_staggered_animations: 0.1.2
   flutter_easyrefresh: 2.1.5

@@ -68,10 +68,11 @@ class AuthScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 enabled: !_uiController.busy,
                 style: const TextStyle(fontWeight: FontWeight.w700),
+                decoration: InputDecoration(hintText: 'Basic bLaBlaTokenHere'),
+                textInputAction: TextInputAction.send,
                 onSubmitted: (_) => _uiController.validate(),
                 onChanged: (text) =>
                     _uiController.ready.value = text.isNotEmpty,
-                decoration: InputDecoration(hintText: 'Basic bLaBlaTokenHere'),
               ),
               SizedBox(height: 10),
               Obx(

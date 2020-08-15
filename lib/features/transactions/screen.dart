@@ -120,8 +120,23 @@ class TransactionsScreen extends StatelessWidget {
         () => Visibility(
           visible: _uiController.ready.value,
           replacement: Center(child: CircularProgressIndicator()),
-          child:
-              Opacity(opacity: _uiController.busy ? 0.5 : 1.0, child: _content),
+          child: Visibility(
+            visible: _uiController.error,
+            child: EmptyPlaceholder(
+              iconData: Icons.error_outline,
+              message: _uiController.message.value,
+              child: OutlineButton(
+                child: Text('Refresh'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                onPressed: _uiController.fetch,
+              ),
+            ),
+            replacement: Opacity(
+              opacity: _uiController.busy ? 0.5 : 1.0,
+              child: _content,
+            ),
+          ),
         ),
       ),
       bottomNavigationBar: Obx(

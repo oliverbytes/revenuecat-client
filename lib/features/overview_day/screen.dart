@@ -1,4 +1,5 @@
 import 'package:app/core/utils/logger.dart';
+import 'package:app/features/general/empty_placeholder.widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -198,7 +199,20 @@ class OverviewDayScreen extends StatelessWidget {
       child: Obx(
         () => Visibility(
           visible: _uiController.busy,
-          replacement: _content,
+          replacement: Visibility(
+            visible: _uiController.error,
+            child: EmptyPlaceholder(
+              iconData: Icons.error_outline,
+              message: _uiController.message.value,
+              child: OutlineButton(
+                child: Text('Refresh'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                onPressed: _uiController.fetch,
+              ),
+            ),
+            replacement: _content,
+          ),
           child: kIsWeb
               ? Opacity(opacity: 0.5, child: _content)
               : Shimmer.fromColors(

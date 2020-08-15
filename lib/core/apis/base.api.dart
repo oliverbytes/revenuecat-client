@@ -1,9 +1,9 @@
-import 'dart:convert';
-
 import 'package:app/core/managers/hive.manager.dart';
+import 'package:app/core/models/api_error.model.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
+import 'package:either_option/either_option.dart';
 import 'package:get/get.dart';
 
 final logger = initLogger('BaseAPI');
@@ -16,7 +16,7 @@ class BaseAPI extends GetxController {
 
   Map<String, String> get baseParams => {};
 
-  Future<Map<String, dynamic>> baseRequest({
+  Future<Either<ApiError, Map<String, dynamic>>> baseRequest({
     final String function,
     final Map<String, dynamic> params,
     final Map headers,
@@ -33,33 +33,32 @@ class BaseAPI extends GetxController {
       receiveTimeout: timeout,
     ));
 
-    Response<String> response;
+    Response<Map<String, dynamic>> response;
 
     try {
-      response = await _dio.get<String>(url, queryParameters: params);
+      response = await _dio.get(url, queryParameters: params);
+      return Right(response.data);
     } on DioError catch (e) {
-      logger.e('dio error. function: $function, error: ${e.error}');
-      return null;
+      logger.e(
+          'dio error. function: $function, error: ${e.error}, data: ${e.response.data}');
+      if (e.response.data != null) {
+        return Left(ApiError.fromJson(e.response.data));
+      }
+
+      return Left(
+        ApiError(
+          code: 1,
+          message:
+              'Status: ${e.response.statusCode}, Error: ${e.error}, Data: ${e.response.data}',
+        ),
+      );
     } catch (e) {
       logger.e('network error. function: $function, error: $e');
-      return null;
+      return Left(ApiError(code: 0, message: '$e'));
     }
-
-    return json.decode(response.data);
   }
 
-  Future<bool> validToRequest() async {
-    if (await Connectivity().checkConnectivity() == ConnectivityResult.none) {
-      logger.w(
-          "It looks like you are not connected to the internet. Please check your connection.");
-      return false;
-    }
-
-    if (HiveManager.clientToken.isEmpty) {
-      logger.w("Please log in first");
-      return false;
-    }
-
-    return true;
+  Future<bool> internetConnected() async {
+    return await Connectivity().checkConnectivity() != ConnectivityResult.none;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:app/core/apis/general.api.dart';
 import 'package:app/core/controllers/base.controller.dart';
-import 'package:app/core/utils/logger.dart';
 import 'package:app/core/models/transactions.model.dart';
+import 'package:app/core/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -141,31 +141,47 @@ class OverviewDayScreenController extends BaseController {
 
     logger.i('start day: ${_startDate.day}'); // past
 
-    outerloop:
-    for (var i = 0; i < 5; i++) {
+    loop:
+    for (var i = 0; i <= 5; i++) {
       logger.i('loop index: $i');
 
-      final transactions =
+      final result =
           await _api.transactions(startTimestamp: _nextTimestamp, limit: 100);
-      if (transactions == null || transactions.isEmpty) {
-        logger.e('empty transactions');
-        idleState();
+
+      bool breakLoop = false;
+
+      result.fold((error) {
+        errorState(text: 'API Error: ${error.code}!\n${error.message}');
+        breakLoop = true;
         return;
-      }
-
-      _nextTimestamp = transactions.last.purchaseDate.millisecondsSinceEpoch;
-
-      for (var e in transactions) {
-        if (e.purchaseDate.day == _startDate.day) {
-          overviewTransactions.add(e);
-        } else {
-          logger.i('break day: ${e.purchaseDate.day}');
-          break outerloop;
+      }, (transactions) {
+        if (transactions == null || transactions.isEmpty) {
+          errorState(text: 'No results');
+          breakLoop = true;
+          return;
         }
-      }
 
-      logger.i('loaded: ${transactions.length}');
+        _nextTimestamp = transactions.last.purchaseDate.millisecondsSinceEpoch;
+
+        for (var e in transactions) {
+          if (e.purchaseDate.day == _startDate.day) {
+            overviewTransactions.add(e);
+          } else {
+            logger.i('break day: ${e.purchaseDate.day}');
+            breakLoop = true;
+            break;
+          }
+        }
+
+        logger.i('loaded: ${transactions.length}');
+      });
+
+      if (breakLoop) break loop;
     }
+
+    if (state.value == BaseState.Error) return;
+
+    logger.e('for each');
 
     Transaction _lastPurchase, _lastRenewal, _lastConversion;
 
