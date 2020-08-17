@@ -62,7 +62,7 @@ class CustomDialog extends StatelessWidget {
                     text: message,
                     style: TextStyle(fontSize: 15, fontFamily: 'Roboto'),
                     textAlign: TextAlign.center,
-                    linkStyle: TextStyle(color: Colors.blue),
+                    linkStyle: TextStyle(color: Get.theme.accentColor),
                   ),
                   const SizedBox(height: 20),
                   if (child != null) ...[

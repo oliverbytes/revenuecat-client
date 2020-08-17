@@ -48,6 +48,7 @@ class AuthScreen extends StatelessWidget {
                   Linkify(
                     text: _instructions,
                     textAlign: TextAlign.center,
+                    linkStyle: TextStyle(color: Get.theme.accentColor),
                     onOpen: (link) => launch(link.url),
                   ),
                 ],

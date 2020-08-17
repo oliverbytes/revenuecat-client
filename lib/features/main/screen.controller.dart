@@ -11,7 +11,6 @@ import 'package:app/features/transactions/screen.controller.dart';
 import 'package:app/features/transactions/screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
@@ -24,7 +23,6 @@ class MainScreenController extends GetxController {
 
   // VARIABLES
   final pageController = PageController();
-  final refreshController = EasyRefreshController();
 
   final List<Widget> screens = [
     OverviewScreen(),
@@ -45,22 +43,24 @@ class MainScreenController extends GetxController {
     Get.put(TransactionsScreenController());
 
     if (HiveManager.clientToken.isNotEmpty) refresh();
+    logger.w('onInit');
     super.onInit();
   }
 
   @override
   void onReady() {
     if (HiveManager.clientToken.isEmpty) Get.to(AuthScreen());
+    logger.w('onReady');
     super.onInit();
   }
 
   // FUNCTIONS
 
-  Future<void> refresh() async {
-    await OverviewScreenController.to.fetch();
-    await OverviewDayScreenController.to.fetch();
-    await TransactionsScreenController.to.fetch();
-    refreshController.finishRefresh();
+  void refresh() {
+    OverviewScreenController.to.fetch();
+    OverviewDayScreenController.to.fetch();
+    TransactionsScreenController.to.fetch();
+    logger.w('refresh');
   }
 
   void logOut() {
