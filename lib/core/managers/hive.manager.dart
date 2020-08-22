@@ -30,7 +30,9 @@ class HiveManager {
 
     _persistence = await Hive.openBox('persistence');
     persistenceListenable = Hive.box('persistence').listenable();
+
     if (clientToken.isNotEmpty) logger.w('Authorization Token: $clientToken');
+
     logger.w("init");
   }
 }

@@ -8,7 +8,7 @@ const String kCorsAnywhere = 'https://cors-anywhere.herokuapp.com/';
 
 const String kBaseAPIUrl = 'https://api.revenuecat.com/v1';
 
-final baseAPIUrl = (kIsWeb ? '$kCorsAnywhere' : '') + kBaseAPIUrl;
+final baseAPIUrl = (kIsWeb ? kCorsAnywhere : '') + kBaseAPIUrl;
 
 final String overviewUrl = '$baseAPIUrl/developers/me/overview';
 
