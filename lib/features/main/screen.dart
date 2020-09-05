@@ -1,5 +1,6 @@
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
+import 'package:app/features/general/general_tab_bar.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -26,22 +27,7 @@ class MainScreen extends StatelessWidget {
       ],
     );
 
-    final _tabBar = TabBar(
-      tabs: [
-        Tab(text: 'OVERVIEW'),
-        Tab(text: 'DAY'),
-        Tab(text: 'TRANSACTIONS'),
-      ],
-      isScrollable: true,
-      labelStyle: TextStyle(fontWeight: FontWeight.bold),
-      unselectedLabelColor: Colors.grey,
-      indicatorSize: TabBarIndicatorSize.tab,
-      indicator: BubbleTabIndicator(
-        indicatorHeight: 25.0,
-        tabBarIndicatorSize: TabBarIndicatorSize.tab,
-        indicatorColor: Get.theme.accentColor,
-      ),
-    );
+    final _tabBar = GeneralTabbar();
 
     final _appBar = AppBar(
       centerTitle: true,
