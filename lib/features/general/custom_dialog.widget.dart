@@ -29,6 +29,7 @@ class CustomDialog extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       backgroundColor: Get.isDarkMode ? Colors.grey.shade900 : Colors.white,
+      clipBehavior: Clip.hardEdge,
       titlePadding: EdgeInsets.zero,
       scrollable: true,
       title: Stack(
