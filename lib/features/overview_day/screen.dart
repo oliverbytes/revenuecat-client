@@ -295,16 +295,26 @@ class PlatformComparison extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+    return Wrap(
       children: [
-        Icon(Icons.android, size: 12, color: Colors.grey),
-        SizedBox(width: 2),
-        Text(androidText, style: TextStyle(color: Colors.grey, fontSize: 12)),
-        SizedBox(width: 5),
-        Icon(Entypo.app_store, size: 12, color: Colors.grey),
-        SizedBox(width: 2),
-        Text(iosText, style: TextStyle(color: Colors.grey, fontSize: 12)),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.android, size: 12, color: Colors.grey),
+            SizedBox(width: 2),
+            Text(androidText,
+                style: TextStyle(color: Colors.grey, fontSize: 12)),
+            SizedBox(width: 5),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Entypo.app_store, size: 12, color: Colors.grey),
+            SizedBox(width: 2),
+            Text(iosText, style: TextStyle(color: Colors.grey, fontSize: 12)),
+          ],
+        ),
       ],
     );
   }
