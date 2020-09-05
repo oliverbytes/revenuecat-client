@@ -47,7 +47,7 @@ class TransactionsTile extends StatelessWidget {
         ),
         if (object.expiresDate != null) ...[
           Text(
-            'Expires: ${DateFormat.yMMMEd().add_jm().format(object.expiresDate)}',
+            'Expires: ${DateFormat.yMMMEd().format(object.expiresDate)}',
             style: _subTitleStyle,
           ),
         ],
