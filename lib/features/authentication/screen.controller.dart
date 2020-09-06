@@ -36,7 +36,7 @@ class AuthScreenController extends BaseController {
         pageBuilder: (_, __, ___) => CustomDialog(
           'Token Error',
           'API Error: ${error.code}!\n${error.message}',
-          image: Icon(Icons.error_outline, size: 50),
+          image: const Icon(Icons.error_outline, size: 50),
         ),
       );
     }, (valid) async {
@@ -52,7 +52,7 @@ class AuthScreenController extends BaseController {
           pageBuilder: (_, __, ___) => CustomDialog(
             'Token Error',
             'Your token is invalid',
-            image: Icon(Icons.error_outline, size: 50),
+            image: const Icon(Icons.error_outline, size: 50),
           ),
         );
       }

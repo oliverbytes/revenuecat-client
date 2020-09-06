@@ -39,7 +39,8 @@ class SelectionSheet extends StatelessWidget {
               ? Text(data.subTitle, style: const TextStyle(color: Colors.grey))
               : null,
           leading: data.icon,
-          trailing: (data?.active == true ? Icon(Icons.check_circle) : null),
+          trailing:
+              (data?.active == true ? const Icon(Icons.check_circle) : null),
           onTap: _onTap,
         );
       } else if (direction == Axis.horizontal) {

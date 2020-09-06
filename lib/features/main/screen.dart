@@ -1,7 +1,6 @@
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/general_tab_bar.dart';
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
@@ -19,24 +18,22 @@ class MainScreen extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset('assets/images/revenuecat.png', height: 30),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(
           kApptitle,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ],
     );
 
-    final _tabBar = GeneralTabbar();
-
     final _appBar = AppBar(
       centerTitle: true,
       title: _title,
-      bottom: _tabBar,
+      bottom: const GeneralTabbar(),
       actions: [
         IconButton(
           onPressed: _uiController.about,
-          icon: Icon(Entypo.dots_two_vertical),
+          icon: const Icon(Entypo.dots_two_vertical),
         ),
       ],
     );

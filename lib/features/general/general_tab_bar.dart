@@ -19,6 +19,7 @@ class GeneralTabbar extends StatelessWidget with PreferredSizeWidget {
           Tab(text: 'OVERVIEW'),
           Tab(text: 'DAY'),
           Tab(text: 'TRANSACTIONS'),
+          Tab(text: 'APPS'),
         ],
         isScrollable: true,
         labelStyle: TextStyle(fontWeight: FontWeight.bold),

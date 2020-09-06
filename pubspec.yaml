@@ -11,32 +11,33 @@ dependencies:
     sdk: flutter
 
   #UTILS
-  get: 3.4.6
+  get: 3.8.0
   flutter_local_notifications: 1.4.4+4
   hive: 1.4.4
   hive_flutter: 0.3.1
-  url_launcher: 5.5.0
+  url_launcher: 5.5.2
   timeago: 2.0.27
   logger: 0.9.2
   intl: 0.16.1
-  supercharged: 1.1.0
+  supercharged: 1.10.0
   either_option: 1.0.6
   #INFO
-  device_info: 0.4.2+6
-  package_info: 0.4.1
+  device_info: 0.4.2+7
+  package_info: 0.4.3
   #MEDIA
-  cached_network_image: 2.2.0+1
+  cached_network_image: 2.3.1
   flutter_spinkit: 4.1.2+1
   flutter_icons: 1.1.0
   #NETWORK
   dio: 3.0.10
-  connectivity: 0.4.9
+  connectivity: 0.4.9+2
   #UI
   flutter_staggered_animations: 0.1.2
   flutter_easyrefresh: 2.1.5
   bubble_tab_indicator: 0.1.4
   flutter_linkify: 3.1.3
   shimmer: 1.1.1
+  step_progress_indicator: 0.2.4+7
 
 # DEVELOPER DEPENDENCIES
 dev_dependencies:

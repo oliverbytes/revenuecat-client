@@ -36,21 +36,21 @@ class OverviewScreenController extends BaseController {
 
   String get users => NumberFormat.decimalPattern()
       .format(overview.value?.activeUsersCount ?? 0);
-
   // INIT
 
   // FUNCTIONS
-
   Future<void> fetch() async {
     this.busyState();
+
     overview.value = Overview();
     final result = await _api.overview();
-    this.idleState();
 
     result.fold(
       (error) =>
           errorState(text: 'API Error: ${error.code}!\n${error.message}'),
       (data) => overview.value = data,
     );
+
+    this.idleState();
   }
 }

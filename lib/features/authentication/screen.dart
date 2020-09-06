@@ -31,18 +31,19 @@ class AuthScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.asset('assets/images/revenuecat.png', height: 130),
-              SizedBox(height: 15),
-              Text(
+              const SizedBox(height: 15),
+              const Text(
                 'RevenueCat',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               ExpansionTile(
-                title: Text(
+                title: const Text(
                   'How to obtain the Authorization Token?',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                 ),
                 children: [
                   Linkify(
@@ -54,16 +55,16 @@ class AuthScreen extends StatelessWidget {
                 ],
               ),
               ExpansionTile(
-                title: Text(
+                title: const Text(
                   'Why use this app? Is it safe?',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                 ),
                 children: [
                   Text(_details, textAlign: TextAlign.center),
                 ],
               ),
-              Divider(),
+              const Divider(),
               TextField(
                 controller: _uiController.editingController,
                 minLines: 2,
@@ -77,37 +78,37 @@ class AuthScreen extends StatelessWidget {
                 onChanged: (text) =>
                     _uiController.ready.value = text.isNotEmpty,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Obx(
                 () => RaisedButton(
                   onPressed: _uiController.ready.value
                       ? () => _uiController.validate()
                       : null,
-                  child: Text('Validate Token'),
+                  child: const Text('Validate Token'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'This app is not endorsed nor affiliated by RevenueCat. Logo & Trademarks belongs to RevenueCat.',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Linkify(
                 text:
                     'Open Source & Contributors\nhttps://github.com/nemoryoliver/revenuecat-client',
-                style: TextStyle(color: Colors.grey, fontSize: 13),
+                style: const TextStyle(color: Colors.grey, fontSize: 13),
                 linkStyle: TextStyle(color: Get.theme.accentColor),
                 textAlign: TextAlign.center,
                 onOpen: (link) => launch(link.url),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Linkify(
                 text: 'Developer\nhttps://nemorystudios.dev',
-                style: TextStyle(color: Colors.grey, fontSize: 13),
+                style: const TextStyle(color: Colors.grey, fontSize: 13),
                 linkStyle: TextStyle(color: Get.theme.accentColor),
                 textAlign: TextAlign.center,
                 onOpen: (link) => launch(link.url),

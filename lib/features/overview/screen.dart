@@ -1,3 +1,4 @@
+import 'package:app/core/controllers/account.controller.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/empty_placeholder.widget.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'screen.controller.dart';
 
@@ -15,11 +17,12 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OverviewScreenController _uiController = Get.find();
+    final AccountController _accountController = Get.find();
 
     final _content = Center(
       child: Container(
         constraints: BoxConstraints(maxWidth: kWebMaxWidth),
-        padding: EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 20),
         child: EasyRefresh(
           header: MaterialHeader(),
           onRefresh: _uiController.fetch,
@@ -29,77 +32,109 @@ class OverviewScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.access_alarm),
-                  title: Text('Active Trials'),
-                  subtitle: Text('active trials',
-                      style: TextStyle(color: Colors.grey)),
+                  leading: const Icon(Icons.perm_identity),
+                  title: Obx(() => Text(
+                      '${_accountController.accountName} - ${_accountController.accountId}')),
+                  subtitle: Obx(() => Text(
+                      'Email: ${_accountController.accountEmail}\nCurrent Plan: ${_accountController.accountPlan}\nFirst Transaction: ${_accountController.firstTransactionDate}',
+                      style: const TextStyle(color: Colors.grey))),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.attach_money),
+                  title: const Text('Monthly Tracked Revenue'),
+                  subtitle: Obx(() => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 5),
+                          StepProgressIndicator(
+                            totalSteps: _accountController.mtrLimit,
+                            currentStep: _accountController.currentMtr,
+                            size: 5,
+                            padding: 0,
+                            selectedColor: Get.theme.accentColor,
+                            unselectedColor: Colors.grey.withOpacity(0.5),
+                            roundedEdges: Radius.circular(10),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                              '${_accountController.currentMtrFormatted} / ${_accountController.mtrLimitFormatted}'),
+                        ],
+                      )),
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const Icon(Icons.access_alarm),
+                  title: const Text('Active Trials'),
+                  subtitle: const Text('active trials',
+                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(_uiController.trials,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.refresh),
-                  title: Text('Active Subscriptions'),
-                  subtitle: Text('active subscribers',
-                      style: TextStyle(color: Colors.grey)),
+                  leading: const Icon(Icons.refresh),
+                  title: const Text('Active Subscriptions'),
+                  subtitle: const Text('active subscribers',
+                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(_uiController.subscribers,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.date_range),
-                  title: Text('MRR'),
-                  subtitle: Text('monthly recurring revenue',
-                      style: TextStyle(color: Colors.grey)),
+                  leading: const Icon(Icons.date_range),
+                  title: const Text('MRR'),
+                  subtitle: const Text('monthly recurring revenue',
+                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(
                       _uiController.mrr,
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)
-                              .copyWith(color: Colors.lightGreen),
+                      style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold)
+                          .copyWith(color: Colors.lightGreen),
                     ),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.attach_money),
-                  title: Text('Revenue'),
-                  subtitle: Text('last 28 days',
-                      style: TextStyle(color: Colors.grey)),
+                  leading: const Icon(Icons.attach_money),
+                  title: const Text('Revenue'),
+                  subtitle: const Text('last 28 days',
+                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(
                       _uiController.revenue,
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold)
-                              .copyWith(color: Colors.lightGreen),
+                      style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold)
+                          .copyWith(color: Colors.lightGreen),
                     ),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.phone_android),
-                  title: Text('Installs'),
-                  subtitle: Text('last 28 days',
-                      style: TextStyle(color: Colors.grey)),
+                  leading: const Icon(Icons.phone_android),
+                  title: const Text('Installs'),
+                  subtitle: const Text('last 28 days',
+                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(_uiController.installs,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.people),
-                  title: Text('Active Users'),
-                  subtitle: Text('last 28 days',
-                      style: TextStyle(color: Colors.grey)),
+                  leading: const Icon(Icons.people),
+                  title: const Text('Active Users'),
+                  subtitle: const Text('last 28 days',
+                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(_uiController.users,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
                 ),
+                const SizedBox(height: 100),
               ],
             ),
           ),

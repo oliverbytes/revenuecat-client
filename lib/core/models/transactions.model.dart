@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app.model.dart';
+
 class RootTransactions {
   RootTransactions({
     this.firstPurchaseMs,
@@ -155,36 +157,4 @@ class Status {
   final Color color;
 
   Status(this.name, this.color);
-}
-
-class App {
-  App({
-    this.id,
-    this.name,
-  });
-
-  final String id;
-  final String name;
-
-  factory App.fromJson(Map<String, dynamic> json) => App(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-      };
-
-  String get image {
-    if (id == '995c10b4') {
-      return 'assets/images/bluer.png';
-    } else if (id == 'cb054f89') {
-      return 'assets/images/noseen.png';
-    } else if (id == '42e3a4c2') {
-      return 'assets/images/savestory.png';
-    } else {
-      return 'assets/images/placeholder.png';
-    }
-  }
 }

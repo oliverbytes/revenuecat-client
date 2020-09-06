@@ -24,7 +24,7 @@ class TransactionsScreenController extends BaseController {
   final ready = false.obs;
 
   // GETTERS
-  int get count => data.value.length;
+  int get count => data.length;
   String get sinceDate => DateFormat.yMMMd().format(date.value);
 
   // INIT
@@ -59,7 +59,7 @@ class TransactionsScreenController extends BaseController {
   }
 
   Future<void> fetchNext() async {
-    final lastTimestamp = data.value.last.purchaseDate.millisecondsSinceEpoch;
+    final lastTimestamp = data.last.purchaseDate.millisecondsSinceEpoch;
 
     final result =
         await _api.transactions(startTimestamp: lastTimestamp, limit: 20);

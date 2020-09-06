@@ -21,7 +21,7 @@ class EmptyPlaceholder extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
             if (child != null) ...[
               const SizedBox(height: 10),

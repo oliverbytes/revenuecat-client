@@ -10,9 +10,11 @@ const String kBaseAPIUrl = 'https://api.revenuecat.com/v1';
 
 final baseAPIUrl = (kIsWeb ? kCorsAnywhere : '') + kBaseAPIUrl;
 
-final String overviewUrl = '$baseAPIUrl/developers/me/overview';
+final String meUrl = '$baseAPIUrl/developers/me';
 
-final String transactionsUrl = '$baseAPIUrl/developers/me/transactions';
+final String overviewUrl = '$meUrl/overview';
+
+final String transactionsUrl = '$meUrl/transactions';
 
 const String kGithubProjectUrl =
     'https://github.com/nemoryoliver/revenuecat-client';

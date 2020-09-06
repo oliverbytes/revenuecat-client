@@ -1,5 +1,6 @@
 import 'package:app/core/models/transactions.model.dart';
 import 'package:app/core/utils/utils.dart';
+import 'package:app/features/general/app_image.widget.dart';
 import 'package:app/features/general/selection.sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -22,7 +23,7 @@ class TransactionsTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5), color: e.color),
             child: Text(
               e.name.toUpperCase(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 10,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -34,7 +35,7 @@ class TransactionsTile extends StatelessWidget {
 
     final _title = Text(
       object.app.name,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
     );
 
     final _subTitle = Column(
@@ -51,7 +52,7 @@ class TransactionsTile extends StatelessWidget {
             style: _subTitleStyle,
           ),
         ],
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Wrap(
           children: [
             Icon(
@@ -61,7 +62,7 @@ class TransactionsTile extends StatelessWidget {
               color: object.platform.color,
               size: 13,
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             ..._badges,
           ],
         ),
@@ -83,11 +84,11 @@ class TransactionsTile extends StatelessWidget {
         ),
         Text(
           Utils.getTimeAgo(dateTime: object.purchaseDate, short: true) + ' ago',
-          style: TextStyle(fontSize: 12, color: Colors.grey),
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
         Text(
           DateFormat.jm().format(object.purchaseDate),
-          style: TextStyle(fontSize: 12, color: Colors.grey),
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
       ],
     );
@@ -122,7 +123,7 @@ class TransactionsTile extends StatelessWidget {
     }
 
     return ListTile(
-      leading: Image.asset(object.app.image, height: 40),
+      leading: AppImage(app: object.app),
       title: _title,
       subtitle: _subTitle,
       trailing: _trailing,

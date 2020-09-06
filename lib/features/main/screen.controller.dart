@@ -1,6 +1,8 @@
+import 'package:app/core/controllers/account.controller.dart';
 import 'package:app/core/managers/hive.manager.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
+import 'package:app/features/apps/screen.dart';
 import 'package:app/features/authentication/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
 import 'package:app/features/overview/screen.controller.dart';
@@ -28,6 +30,7 @@ class MainScreenController extends GetxController {
     OverviewScreen(),
     OverviewDayScreen(),
     TransactionsScreen(),
+    AppsScreen(),
   ];
 
   // PROPERTIES
@@ -38,6 +41,7 @@ class MainScreenController extends GetxController {
   // INIT
   @override
   void onInit() {
+    Get.put(AccountController());
     Get.put(OverviewScreenController());
     Get.put(OverviewDayScreenController());
     Get.put(TransactionsScreenController());
@@ -55,11 +59,12 @@ class MainScreenController extends GetxController {
   }
 
   // FUNCTIONS
-
   void refresh() {
+    AccountController.to.fetch();
     OverviewScreenController.to.fetch();
     OverviewDayScreenController.to.fetch();
     TransactionsScreenController.to.fetch();
+
     logger.w('refresh');
   }
 
@@ -95,12 +100,12 @@ class MainScreenController extends GetxController {
         image: Image.asset('assets/images/revenuecat.png', height: 50),
         child: Column(
           children: [
-            Divider(height: 50),
+            const Divider(height: 50),
             Image.asset(
               'assets/images/nemory_studios.png',
               height: 50,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Linkify(
               text: 'Developer & Maintainer\nhttps://nemorystudios.dev',
               style: TextStyle(color: Colors.grey, fontSize: 13),
@@ -108,10 +113,10 @@ class MainScreenController extends GetxController {
               textAlign: TextAlign.center,
               onOpen: (link) => launch(link.url),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Credits to RevenueCat for their amazing service\nand to all contributors of the project!',
-              style: TextStyle(color: Colors.grey, fontSize: 13),
+              style: const TextStyle(color: Colors.grey, fontSize: 13),
               textAlign: TextAlign.center,
             )
           ],

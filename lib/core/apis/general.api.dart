@@ -1,4 +1,5 @@
 import 'package:app/core/apis/base.api.dart';
+import 'package:app/core/models/account.model.dart';
 import 'package:app/core/models/api_error.model.dart';
 import 'package:app/core/models/overview.model.dart';
 import 'package:app/core/models/transactions.model.dart';
@@ -62,6 +63,23 @@ class GeneralAPI extends BaseAPI {
     return result.fold(
       (error) => Left(error),
       (data) => Right(Overview.fromJson(data)),
+    );
+  }
+
+  Future<Either<ApiError, Account>> account() async {
+    if (!await internetConnected())
+      return Left(ApiError(code: 0, message: kInternetError));
+
+    final result = await baseRequest(
+      function: "me",
+      headers: baseHeaders,
+      url: meUrl,
+      debug: true,
+    );
+
+    return result.fold(
+      (error) => Left(error),
+      (data) => Right(Account.fromJson(data)),
     );
   }
 

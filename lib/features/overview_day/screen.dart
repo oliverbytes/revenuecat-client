@@ -36,7 +36,7 @@ class OverviewDayScreen extends StatelessWidget {
                     children: [
                       Obx(
                         () => IconButton(
-                          icon: Icon(Icons.arrow_back_ios),
+                          icon: const Icon(Icons.arrow_back_ios),
                           onPressed:
                               _uiController.canGoPrevious && _uiController.busy
                                   ? null
@@ -46,10 +46,10 @@ class OverviewDayScreen extends StatelessWidget {
                       Obx(
                         () => FlatButton.icon(
                           onPressed: () => _uiController.selectDate(context),
-                          icon: Icon(Icons.date_range, size: 20),
+                          icon: const Icon(Icons.date_range, size: 20),
                           label: Text(
                             _uiController.selectedDate,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
@@ -58,7 +58,7 @@ class OverviewDayScreen extends StatelessWidget {
                       ),
                       Obx(
                         () => IconButton(
-                          icon: Icon(Icons.arrow_forward_ios),
+                          icon: const Icon(Icons.arrow_forward_ios),
                           onPressed:
                               _uiController.canGoNext && !_uiController.busy
                                   ? _uiController.fetchNext
@@ -68,10 +68,10 @@ class OverviewDayScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: Icon(Icons.attach_money),
-                  title: Text('Revenue'),
+                  leading: const Icon(Icons.attach_money),
+                  title: const Text('Revenue'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
                       text: 'Last: ' +
@@ -93,10 +93,10 @@ class OverviewDayScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 ListTile(
-                  leading: Icon(Icons.refresh),
-                  title: Text('Renewals'),
+                  leading: const Icon(Icons.refresh),
+                  title: const Text('Renewals'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
                       text: 'Last: ' + _uiController.lastRenewalDate,
@@ -114,10 +114,10 @@ class OverviewDayScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 ListTile(
-                  leading: Icon(Icons.open_in_new),
-                  title: Text('Trial Conversions'),
+                  leading: const Icon(Icons.open_in_new),
+                  title: const Text('Trial Conversions'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
                       text: 'Last: ' + _uiController.lastConversionDate,
@@ -137,11 +137,10 @@ class OverviewDayScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.person_add),
-                  title: Text('Subscribers'),
+                  leading: const Icon(Icons.person_add),
+                  title: const Text('Subscribers'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      // text: 'Last: ' + _uiController.lastConversionDate ?? '',
                       androidText:
                           _uiController.subscribersAndroid.value.toString(),
                       iosText: _uiController.subscribersIOS.value.toString(),
@@ -155,11 +154,10 @@ class OverviewDayScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.access_alarm),
-                  title: Text('Trials'),
+                  leading: const Icon(Icons.access_alarm),
+                  title: const Text('Trials'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      // text: 'Last: ' + _uiController.lastConversionDate ?? '',
                       androidText: _uiController.trialsAndroid.value.toString(),
                       iosText: _uiController.trialsIOS.value.toString(),
                     ),
@@ -168,18 +166,14 @@ class OverviewDayScreen extends StatelessWidget {
                     () => TrailingWidget(
                       text: _uiController.trialsCount.toString(),
                       textColor: Colors.white,
-                      // androidText:
-                      //     _uiController.trialsAndroid.value.toString(),
-                      // iosText: _uiController.trialsIOS.value.toString(),
                     ),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.money_off),
-                  title: Text('Refunds'),
+                  leading: const Icon(Icons.money_off),
+                  title: const Text('Refunds'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      // text: 'Last: ' + _uiController.lastConversionDate ?? '',
                       androidText:
                           _uiController.refundsAndroid.value.toString(),
                       iosText: _uiController.refundsIOS.value.toString(),
@@ -195,8 +189,8 @@ class OverviewDayScreen extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.payment),
-                  title: Text('Transactions'),
+                  leading: const Icon(Icons.payment),
+                  title: const Text('Transactions'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
                       // text: 'Last: ' + _uiController.lastConversionDate ?? '',
@@ -228,7 +222,7 @@ class OverviewDayScreen extends StatelessWidget {
             iconData: Icons.error_outline,
             message: _uiController.message.value,
             child: OutlineButton(
-              child: Text('Refresh'),
+              child: const Text('Refresh'),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               onPressed: _uiController.fetch,
@@ -237,7 +231,7 @@ class OverviewDayScreen extends StatelessWidget {
           replacement: Scaffold(
             floatingActionButton: FloatingActionButton(
               onPressed: _uiController.fetch,
-              child: Icon(Icons.refresh),
+              child: const Icon(Icons.refresh),
             ),
             body: _content,
           ),
@@ -273,13 +267,13 @@ class OverviewSubtitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (text != null) ...[
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             text,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
           ),
         ],
-        SizedBox(height: 3),
+        const SizedBox(height: 3),
         PlatformComparison(androidText: androidText, iosText: iosText),
       ],
     );
@@ -300,19 +294,20 @@ class PlatformComparison extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.android, size: 12, color: Colors.grey),
-            SizedBox(width: 2),
+            const Icon(Icons.android, size: 12, color: Colors.grey),
+            const SizedBox(width: 2),
             Text(androidText,
-                style: TextStyle(color: Colors.grey, fontSize: 12)),
-            SizedBox(width: 5),
+                style: const TextStyle(color: Colors.grey, fontSize: 12)),
+            const SizedBox(width: 5),
           ],
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Entypo.app_store, size: 12, color: Colors.grey),
-            SizedBox(width: 2),
-            Text(iosText, style: TextStyle(color: Colors.grey, fontSize: 12)),
+            const Icon(Entypo.app_store, size: 12, color: Colors.grey),
+            const SizedBox(width: 2),
+            Text(iosText,
+                style: const TextStyle(color: Colors.grey, fontSize: 12)),
           ],
         ),
       ],

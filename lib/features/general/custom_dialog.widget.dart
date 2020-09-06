@@ -51,7 +51,7 @@ class CustomDialog extends StatelessWidget {
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Roboto',
@@ -61,7 +61,7 @@ class CustomDialog extends StatelessWidget {
                   Linkify(
                     onOpen: (link) => launch(link.url),
                     text: message,
-                    style: TextStyle(fontSize: 15, fontFamily: 'Roboto'),
+                    style: const TextStyle(fontSize: 15, fontFamily: 'Roboto'),
                     textAlign: TextAlign.center,
                     linkStyle: TextStyle(color: Get.theme.accentColor),
                   ),

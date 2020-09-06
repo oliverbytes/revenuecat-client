@@ -22,6 +22,15 @@ class HiveManager {
     await _persistence.put('client_token', token);
   }
 
+  static Future<void> setAppImageUrl(String appId, String imageUrl) async {
+    await _persistence.put('${appId}_image_url', imageUrl);
+  }
+
+  static String getAppImageUrl(String appId) {
+    return _persistence.get('${appId}_image_url',
+        defaultValue: 'https://i.imgur.com/qWD7i5x.png');
+  }
+
   static Future<void> init() async {
     if (!kIsWeb) {
       final dir = await getApplicationDocumentsDirectory();
