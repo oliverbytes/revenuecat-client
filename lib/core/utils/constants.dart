@@ -22,3 +22,5 @@ const String kGithubProjectUrl =
 const kWebMaxWidth = 800.0;
 
 const String kInternetError = 'Please check your internet connection.';
+
+const String kCookiesPersistence = 'cookies';

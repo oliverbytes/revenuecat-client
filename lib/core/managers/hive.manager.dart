@@ -1,3 +1,4 @@
+import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
@@ -14,12 +15,12 @@ class HiveManager {
   // GETTERS
   static Box get persistence => _persistence;
 
-  static String get clientToken =>
-      _persistence.get('client_token', defaultValue: '');
+  static String get cookies =>
+      _persistence.get(kCookiesPersistence, defaultValue: '');
 
   // FUNCTIONS
-  static Future<void> setClientToken(String token) async {
-    await _persistence.put('client_token', token);
+  static Future<void> setCookie(String cookie) async {
+    await _persistence.put(kCookiesPersistence, cookie);
   }
 
   static Future<void> setAppImageUrl(String appId, String imageUrl) async {
@@ -40,7 +41,7 @@ class HiveManager {
     _persistence = await Hive.openBox('persistence');
     persistenceListenable = Hive.box('persistence').listenable();
 
-    if (clientToken.isNotEmpty) logger.w('Authorization Token: $clientToken');
+    if (cookies.isNotEmpty) logger.w('Cookies: $cookies');
 
     logger.w("init");
   }

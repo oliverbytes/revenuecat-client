@@ -10,7 +10,7 @@ final logger = initLogger('BaseAPI');
 
 class BaseAPI extends GetxController {
   Map<String, String> get baseHeaders => {
-        'Authorization': HiveManager.clientToken,
+        'Cookie': HiveManager.cookies,
         'X-Requested-With': 'XMLHttpRequest',
       };
 
