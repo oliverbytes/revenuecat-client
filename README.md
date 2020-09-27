@@ -122,8 +122,8 @@ Google Flutter SDK
 * apply filter: api.revenuecat.com
 * open any logged traffic (some may not include the token, so take your time hunting)
 * Go to Headers Tab
-* then find the token in the Request Headers section
-* Copy and send it to your Test Device.
+* Find the Cookie Header and copy the value of rc_auth_token
+* Copy and send it to your Test Device for later use
 2. Clone the repo
 ```sh
 git clone https://github.com/nemoryoliver/revenuecat-client.git
