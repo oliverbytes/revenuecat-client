@@ -14,13 +14,13 @@ final logger = initLogger('GeneralAPI');
 class GeneralAPI extends BaseAPI {
   static GeneralAPI get to => Get.find();
 
-  Future<Either<ApiError, bool>> isCookieValid(String cookie) async {
+  Future<Either<ApiError, bool>> isTokenValid(String token) async {
     if (!await internetConnected())
       return Left(ApiError(code: 0, message: kInternetError));
 
     final options = BaseOptions(
       headers: {
-        'Cookie': cookie,
+        'Authorization': token,
         'X-Requested-With': 'XMLHttpRequest',
       },
       method: 'GET',
@@ -40,7 +40,7 @@ class GeneralAPI extends BaseAPI {
       return Left(
         ApiError(
           code: 0,
-          message: 'Please verify your cookie freshly copied and valid.',
+          message: 'Please verify your token freshly copied and valid.',
         ),
       );
     } catch (e) {

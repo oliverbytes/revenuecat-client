@@ -46,14 +46,14 @@ class MainScreenController extends GetxController {
     Get.put(OverviewDayScreenController());
     Get.put(TransactionsScreenController());
 
-    if (HiveManager.cookies.isNotEmpty) refresh();
+    if (HiveManager.clientToken.isNotEmpty) refresh();
     logger.w('onInit');
     super.onInit();
   }
 
   @override
   void onReady() {
-    if (HiveManager.cookies.isEmpty) Get.to(AuthScreen());
+    if (HiveManager.clientToken.isEmpty) Get.to(AuthScreen());
     logger.w('onReady');
     super.onInit();
   }
@@ -77,7 +77,7 @@ class MainScreenController extends GetxController {
         image: Icon(Icons.exit_to_app, size: 100),
         button: 'Log Out',
         pressed: () {
-          HiveManager.setCookie('');
+          HiveManager.setClientToken('');
           Get.to(AuthScreen());
         },
       ),

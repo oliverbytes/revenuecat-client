@@ -26,15 +26,15 @@ class AuthScreenController extends BaseController {
 
   void validate() async {
     this.busyState();
-    final cookie = editingController.text.trim();
-    final result = await GeneralAPI.to.isCookieValid(cookie);
+    final token = editingController.text.trim();
+    final result = await GeneralAPI.to.isTokenValid(token);
 
     result.fold((error) {
       this.errorState();
       Get.generalDialog(
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (_, __, ___) => CustomDialog(
-          'Cookie Error',
+          'Token Error',
           'API Error: ${error.code}!\n${error.message}',
           image: const Icon(Icons.error_outline, size: 50),
         ),
@@ -42,7 +42,7 @@ class AuthScreenController extends BaseController {
     }, (valid) async {
       if (valid) {
         this.idleState();
-        await HiveManager.setCookie(cookie);
+        await HiveManager.setClientToken(token);
         MainScreenController.to.refresh();
         Get.back(result: true);
       } else {
@@ -50,8 +50,8 @@ class AuthScreenController extends BaseController {
         Get.generalDialog(
           transitionDuration: const Duration(milliseconds: 200),
           pageBuilder: (_, __, ___) => CustomDialog(
-            'Cookie Error',
-            'Your cookie is invalid',
+            'Token Error',
+            'Your token is invalid',
             image: const Icon(Icons.error_outline, size: 50),
           ),
         );

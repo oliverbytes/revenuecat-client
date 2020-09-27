@@ -41,7 +41,7 @@ class AuthScreen extends StatelessWidget {
               const SizedBox(height: 15),
               ExpansionTile(
                 title: const Text(
-                  'How to obtain your RevenueCat Cookies?',
+                  'How to obtain the Authorization Token?',
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 14),
                 ),
@@ -72,8 +72,7 @@ class AuthScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 enabled: !_uiController.busy,
                 style: const TextStyle(fontWeight: FontWeight.w700),
-                decoration:
-                    InputDecoration(hintText: 'Your RevenueCat Cookies Here'),
+                decoration: InputDecoration(hintText: 'Basic bLaBlaTokenHere'),
                 textInputAction: TextInputAction.send,
                 onSubmitted: (_) => _uiController.validate(),
                 onChanged: (text) =>
@@ -85,7 +84,7 @@ class AuthScreen extends StatelessWidget {
                   onPressed: _uiController.ready.value
                       ? () => _uiController.validate()
                       : null,
-                  child: const Text('Validate Cookies'),
+                  child: const Text('Validate Token'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
