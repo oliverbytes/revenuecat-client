@@ -13,11 +13,10 @@ import 'screen.controller.dart';
 
 final logger = initLogger('OverviewScreen');
 
-class OverviewScreen extends StatelessWidget {
+class OverviewScreen extends GetView<OverviewScreenController> {
   @override
   Widget build(BuildContext context) {
-    final OverviewScreenController _uiController = Get.find();
-    final AccountController _accountController = Get.find();
+    final AccountController accountController = Get.find();
 
     final _content = Center(
       child: Container(
@@ -25,8 +24,8 @@ class OverviewScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         child: EasyRefresh(
           header: MaterialHeader(),
-          onRefresh: _uiController.fetch,
-          controller: _uiController.refreshController,
+          onRefresh: controller.fetch,
+          controller: controller.refreshController,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -34,9 +33,9 @@ class OverviewScreen extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.perm_identity),
                   title: Obx(() => Text(
-                      '${_accountController.accountName} - ${_accountController.accountId}')),
+                      '${accountController.accountName} - ${accountController.accountId}')),
                   subtitle: Obx(() => Text(
-                      'Email: ${_accountController.accountEmail}\nCurrent Plan: ${_accountController.accountPlan}\nFirst Transaction: ${_accountController.firstTransactionDate}',
+                      'Email: ${accountController.accountEmail}\nCurrent Plan: ${accountController.accountPlan}\nFirst Transaction: ${accountController.firstTransactionDate}',
                       style: const TextStyle(color: Colors.grey))),
                 ),
                 ListTile(
@@ -47,8 +46,8 @@ class OverviewScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 5),
                           StepProgressIndicator(
-                            totalSteps: _accountController.mtrLimit,
-                            currentStep: _accountController.currentMtr,
+                            totalSteps: accountController.mtrLimit,
+                            currentStep: accountController.currentMtr,
                             size: 5,
                             padding: 0,
                             selectedColor: Get.theme.accentColor,
@@ -57,7 +56,7 @@ class OverviewScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                              '${_accountController.currentMtrFormatted} / ${_accountController.mtrLimitFormatted}'),
+                              '${accountController.currentMtrFormatted} / ${accountController.mtrLimitFormatted}'),
                         ],
                       )),
                 ),
@@ -68,7 +67,7 @@ class OverviewScreen extends StatelessWidget {
                   subtitle: const Text('active trials',
                       style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
-                    () => Text(_uiController.trials,
+                    () => Text(controller.trials,
                         style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
@@ -79,7 +78,7 @@ class OverviewScreen extends StatelessWidget {
                   subtitle: const Text('active subscribers',
                       style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
-                    () => Text(_uiController.subscribers,
+                    () => Text(controller.subscribers,
                         style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
@@ -91,7 +90,7 @@ class OverviewScreen extends StatelessWidget {
                       style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(
-                      _uiController.mrr,
+                      controller.mrr,
                       style: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold)
                           .copyWith(color: Colors.lightGreen),
@@ -105,7 +104,7 @@ class OverviewScreen extends StatelessWidget {
                       style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(
-                      _uiController.revenue,
+                      controller.revenue,
                       style: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold)
                           .copyWith(color: Colors.lightGreen),
@@ -118,7 +117,7 @@ class OverviewScreen extends StatelessWidget {
                   subtitle: const Text('last 28 days',
                       style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
-                    () => Text(_uiController.installs,
+                    () => Text(controller.installs,
                         style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
@@ -129,7 +128,7 @@ class OverviewScreen extends StatelessWidget {
                   subtitle: const Text('last 28 days',
                       style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
-                    () => Text(_uiController.users,
+                    () => Text(controller.users,
                         style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
@@ -144,22 +143,22 @@ class OverviewScreen extends StatelessWidget {
 
     return Obx(
       () => Visibility(
-        visible: _uiController.busy,
+        visible: controller.busy,
         replacement: Visibility(
-          visible: _uiController.error,
+          visible: controller.error,
           child: EmptyPlaceholder(
             iconData: Icons.error_outline,
-            message: _uiController.message.value,
+            message: controller.message(),
             child: OutlineButton(
               child: Text('Refresh'),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
             ),
           ),
           replacement: Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
               child: Icon(Icons.refresh),
             ),
             body: _content,

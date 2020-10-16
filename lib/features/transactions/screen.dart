@@ -12,20 +12,18 @@ import 'package:shimmer/shimmer.dart';
 
 final logger = initLogger('TransactionsScreen');
 
-class TransactionsScreen extends StatelessWidget {
+class TransactionsScreen extends GetView<TransactionsScreenController> {
   @override
   Widget build(BuildContext context) {
-    final TransactionsScreenController _uiController = Get.find();
-
     final _searchBox = Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: Obx(
         () => TextField(
           maxLines: 1,
-          enabled: !_uiController.busy,
-          focusNode: _uiController.searchFocusNode,
+          enabled: !controller.busy,
+          focusNode: controller.searchFocusNode,
           style: const TextStyle(fontWeight: FontWeight.w700),
-          onSubmitted: (text) => _uiController.search(text),
+          onSubmitted: (text) => controller.search(text),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(right: 15),
             filled: true,
@@ -42,7 +40,7 @@ class TransactionsScreen extends StatelessWidget {
     );
 
     Widget _itemBuilder(context, index) {
-      final data = _uiController.data[index];
+      final data = controller.data[index];
 
       return AnimationConfiguration.staggeredList(
         position: index,
@@ -67,23 +65,23 @@ class TransactionsScreen extends StatelessWidget {
                     Expanded(child: _searchBox),
                     FlatButton.icon(
                       icon: const Icon(Icons.date_range),
-                      label: Obx(() => Text(_uiController.sinceDate)),
-                      onPressed: () => _uiController.selectDate(context),
+                      label: Obx(() => Text(controller.sinceDate)),
+                      onPressed: () => controller.selectDate(context),
                     )
                   ],
                 ),
                 Visibility(
-                  visible: _uiController.count == 0,
+                  visible: controller.count == 0,
                   replacement: Expanded(
                     child: EasyRefresh(
                       header: MaterialHeader(),
                       footer: MaterialFooter(),
-                      onRefresh: _uiController.refresh,
-                      onLoad: _uiController.fetchNext,
-                      controller: _uiController.refreshController,
+                      onRefresh: controller.refresh,
+                      onLoad: controller.fetchNext,
+                      controller: controller.refreshController,
                       child: ListView.separated(
                         shrinkWrap: true,
-                        itemCount: _uiController.count,
+                        itemCount: controller.count,
                         itemBuilder: _itemBuilder,
                         separatorBuilder: (_, __) => Divider(),
                       ),
@@ -97,7 +95,7 @@ class TransactionsScreen extends StatelessWidget {
                         child: const Text('Refresh'),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        onPressed: _uiController.fetch,
+                        onPressed: controller.fetch,
                       ),
                     ),
                   ),
@@ -111,22 +109,22 @@ class TransactionsScreen extends StatelessWidget {
 
     return Obx(
       () => Visibility(
-        visible: _uiController.busy,
+        visible: controller.busy,
         replacement: Visibility(
-          visible: _uiController.error,
+          visible: controller.error,
           child: EmptyPlaceholder(
             iconData: Icons.error_outline,
-            message: _uiController.message.value,
+            message: controller.message(),
             child: OutlineButton(
               child: const Text('Refresh'),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
             ),
           ),
           replacement: Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
               child: const Icon(Icons.refresh),
             ),
             body: _content,

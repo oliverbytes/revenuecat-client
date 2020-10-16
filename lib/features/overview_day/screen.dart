@@ -12,19 +12,17 @@ import 'screen.controller.dart';
 
 final logger = initLogger('OverviewDayScreen');
 
-class OverviewDayScreen extends StatelessWidget {
+class OverviewDayScreen extends GetView<OverviewDayScreenController> {
   @override
   Widget build(BuildContext context) {
-    final OverviewDayScreenController _uiController = Get.find();
-
     final _content = Center(
       child: Container(
         constraints: BoxConstraints(maxWidth: kWebMaxWidth),
         padding: EdgeInsets.only(top: 20),
         child: EasyRefresh(
           header: MaterialHeader(),
-          onRefresh: _uiController.fetch,
-          controller: _uiController.refreshController,
+          onRefresh: controller.fetch,
+          controller: controller.refreshController,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -37,18 +35,17 @@ class OverviewDayScreen extends StatelessWidget {
                       Obx(
                         () => IconButton(
                           icon: const Icon(Icons.arrow_back_ios),
-                          onPressed:
-                              _uiController.canGoPrevious && _uiController.busy
-                                  ? null
-                                  : _uiController.fetchPrevious,
+                          onPressed: controller.canGoPrevious && controller.busy
+                              ? null
+                              : controller.fetchPrevious,
                         ),
                       ),
                       Obx(
                         () => FlatButton.icon(
-                          onPressed: () => _uiController.selectDate(context),
+                          onPressed: () => controller.selectDate(context),
                           icon: const Icon(Icons.date_range, size: 20),
                           label: Text(
-                            _uiController.selectedDate,
+                            controller.selectedDate,
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -59,10 +56,9 @@ class OverviewDayScreen extends StatelessWidget {
                       Obx(
                         () => IconButton(
                           icon: const Icon(Icons.arrow_forward_ios),
-                          onPressed:
-                              _uiController.canGoNext && !_uiController.busy
-                                  ? _uiController.fetchNext
-                                  : null,
+                          onPressed: controller.canGoNext && !controller.busy
+                              ? controller.fetchNext
+                              : null,
                         ),
                       ),
                     ],
@@ -75,20 +71,20 @@ class OverviewDayScreen extends StatelessWidget {
                   subtitle: Obx(
                     () => OverviewSubtitle(
                       text: 'Last: ' +
-                          _uiController.lastPurchaseDetails +
+                          controller.lastPurchaseDetails +
                           '\nPurchases: ' +
-                          _uiController.purchasesCount.toString(),
-                      androidText: _uiController.revenueAndroidString +
+                          controller.purchasesCount.toString(),
+                      androidText: controller.revenueAndroidString +
                           ' - ' +
-                          _uiController.purchasesAndroid.value.toString(),
-                      iosText: _uiController.revenueIOSString +
+                          controller.purchasesAndroid().toString(),
+                      iosText: controller.revenueIOSString +
                           ' - ' +
-                          _uiController.purchasesIOS.value.toString(),
+                          controller.purchasesIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.revenueTotal,
+                      text: controller.revenueTotal,
                       textColor: Colors.lightGreen,
                     ),
                   ),
@@ -99,16 +95,15 @@ class OverviewDayScreen extends StatelessWidget {
                   title: const Text('Renewals'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      text: 'Last: ' + _uiController.lastRenewalDate,
-                      androidText:
-                          _uiController.renewalsAndroid.value.toString(),
-                      iosText: _uiController.renewalsIOS.value.toString(),
+                      text: 'Last: ' + controller.lastRenewalDate,
+                      androidText: controller.renewalsAndroid().toString(),
+                      iosText: controller.renewalsIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.renewalsCount.toString(),
-                      textColor: _uiController.renewalsCount > 0
+                      text: controller.renewalsCount.toString(),
+                      textColor: controller.renewalsCount > 0
                           ? Colors.lightBlue
                           : Colors.grey,
                     ),
@@ -120,17 +115,16 @@ class OverviewDayScreen extends StatelessWidget {
                   title: const Text('Trial Conversions'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      text: 'Last: ' + _uiController.lastConversionDate,
-                      androidText: _uiController.trialConversionsAndroid.value
-                          .toString(),
-                      iosText:
-                          _uiController.trialConversionsIOS.value.toString(),
+                      text: 'Last: ' + controller.lastConversionDate,
+                      androidText:
+                          controller.trialConversionsAndroid().toString(),
+                      iosText: controller.trialConversionsIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.trialConversionsCount.toString(),
-                      textColor: _uiController.trialConversionsCount > 0
+                      text: controller.trialConversionsCount.toString(),
+                      textColor: controller.trialConversionsCount > 0
                           ? Colors.yellow
                           : Colors.grey,
                     ),
@@ -141,14 +135,13 @@ class OverviewDayScreen extends StatelessWidget {
                   title: const Text('Subscribers'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      androidText:
-                          _uiController.subscribersAndroid.value.toString(),
-                      iosText: _uiController.subscribersIOS.value.toString(),
+                      androidText: controller.subscribersAndroid().toString(),
+                      iosText: controller.subscribersIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.subscribersCount.toString(),
+                      text: controller.subscribersCount.toString(),
                       textColor: Colors.white,
                     ),
                   ),
@@ -158,13 +151,13 @@ class OverviewDayScreen extends StatelessWidget {
                   title: const Text('Trials'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      androidText: _uiController.trialsAndroid.value.toString(),
-                      iosText: _uiController.trialsIOS.value.toString(),
+                      androidText: controller.trialsAndroid().toString(),
+                      iosText: controller.trialsIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.trialsCount.toString(),
+                      text: controller.trialsCount.toString(),
                       textColor: Colors.white,
                     ),
                   ),
@@ -174,15 +167,14 @@ class OverviewDayScreen extends StatelessWidget {
                   title: const Text('Refunds'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      androidText:
-                          _uiController.refundsAndroid.value.toString(),
-                      iosText: _uiController.refundsIOS.value.toString(),
+                      androidText: controller.refundsAndroid().toString(),
+                      iosText: controller.refundsIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.refundsCount.toString(),
-                      textColor: _uiController.refundsCount > 0
+                      text: controller.refundsCount.toString(),
+                      textColor: controller.refundsCount > 0
                           ? Colors.red
                           : Colors.grey,
                     ),
@@ -193,15 +185,14 @@ class OverviewDayScreen extends StatelessWidget {
                   title: const Text('Transactions'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      // text: 'Last: ' + _uiController.lastConversionDate ?? '',
-                      androidText:
-                          _uiController.transactionsAndroid.value.toString(),
-                      iosText: _uiController.transactionsIOS.value.toString(),
+                      // text: 'Last: ' + controller.lastConversionDate ?? '',
+                      androidText: controller.transactionsAndroid().toString(),
+                      iosText: controller.transactionsIOS().toString(),
                     ),
                   ),
                   trailing: Obx(
                     () => TrailingWidget(
-                      text: _uiController.transactionsCount.toString(),
+                      text: controller.transactionsCount.toString(),
                       textColor: Colors.white,
                     ),
                   ),
@@ -215,22 +206,22 @@ class OverviewDayScreen extends StatelessWidget {
 
     return Obx(
       () => Visibility(
-        visible: _uiController.busy,
+        visible: controller.busy,
         replacement: Visibility(
-          visible: _uiController.error,
+          visible: controller.error,
           child: EmptyPlaceholder(
             iconData: Icons.error_outline,
-            message: _uiController.message.value,
+            message: controller.message(),
             child: OutlineButton(
               child: const Text('Refresh'),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
             ),
           ),
           replacement: Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
               child: const Icon(Icons.refresh),
             ),
             body: _content,

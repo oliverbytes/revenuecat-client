@@ -114,33 +114,23 @@ Google Flutter SDK
 
 ### Installation
 
-1. Obtain your RevenueCat Authorization Token
-* fire up your development machine and open your favorite browser
-* Go to RevenueCat's website and make sure you're logged in already
-* Open the browser's Developer Console
-* Go to Network Tab
-* apply filter: api.revenuecat.com
-* open any logged traffic (some may not include the token, so take your time hunting)
-* Go to Headers Tab
-* Find the Cookie Header and copy the value of rc_auth_token
-* Copy and send it to your Test Device for later use
-2. Clone the repo
+1. Clone the repo
 ```sh
 git clone https://github.com/nemoryoliver/revenuecat-client.git
 ```
-3. Switch Flutter Channel to dev or master
+2. Switch Flutter Channel to dev or master
 ```
 flutter channel dev
 ```
-4. Enable desktop support
+3. Enable desktop support
 ```
 flutter config --enable-macos-desktop
 ```
-5. Install packages dependencies
+4. Install packages dependencies
 ```
 flutter pub get
 ```
-6. Run
+5. Run
 ```
 flutter run
 ```

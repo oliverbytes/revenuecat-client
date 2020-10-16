@@ -1,22 +1,20 @@
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
-import 'package:app/features/authentication/screen.controller.dart';
+import 'package:app/features/login/screen.controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-final logger = initLogger('AuthScreen');
+final logger = initLogger('LoginScreen');
 
-class AuthScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _uiController = Get.put(AuthScreenController());
-
-    final _instructions =
-        "Please view the README file for instructions: https://github.com/nemoryoliver/revenuecat-client/blob/master/README.md#installation";
+    final controller = Get.put(LoginScreenController());
 
     final _details =
         "We are very grateful that RevenueCat exists! It's now easier to integrate In-App Purchase features in our apps with minimal code and less complexity. Yes, you can use RevenueCat's Web Dashboard to see everything, but come on, an app is better on mobile. ";
@@ -41,21 +39,6 @@ class AuthScreen extends StatelessWidget {
               const SizedBox(height: 15),
               ExpansionTile(
                 title: const Text(
-                  'How to obtain the Authorization Token?',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 14),
-                ),
-                children: [
-                  Linkify(
-                    text: _instructions,
-                    textAlign: TextAlign.center,
-                    linkStyle: TextStyle(color: Get.theme.accentColor),
-                    onOpen: (link) => launch(link.url),
-                  ),
-                ],
-              ),
-              ExpansionTile(
-                title: const Text(
                   'Why use this app? Is it safe?',
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 14),
@@ -66,24 +49,33 @@ class AuthScreen extends StatelessWidget {
               ),
               const Divider(),
               TextField(
-                controller: _uiController.editingController,
-                minLines: 2,
-                maxLines: 10,
+                controller: controller.emailEditingController,
                 textAlign: TextAlign.center,
-                enabled: !_uiController.busy,
+                enabled: !controller.busy,
                 style: const TextStyle(fontWeight: FontWeight.w700),
-                decoration: InputDecoration(hintText: 'Basic bLaBlaTokenHere'),
+                decoration: InputDecoration(hintText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.send,
-                onSubmitted: (_) => _uiController.validate(),
-                onChanged: (text) =>
-                    _uiController.ready.value = text.isNotEmpty,
+                onSubmitted: (_) => controller.login(),
+                onChanged: (text) => controller.ready(text.isNotEmpty),
+              ),
+              TextField(
+                controller: controller.passwordEditingController,
+                textAlign: TextAlign.center,
+                enabled: !controller.busy,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+                decoration: InputDecoration(hintText: 'Password'),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) => controller.login(),
+                onChanged: (text) => controller.ready(text.isNotEmpty),
               ),
               const SizedBox(height: 10),
               Obx(
                 () => RaisedButton(
-                  onPressed: _uiController.ready.value
-                      ? () => _uiController.validate()
-                      : null,
+                  onPressed:
+                      controller.ready() ? () => controller.login() : null,
                   child: const Text('Validate Token'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -124,7 +116,7 @@ class AuthScreen extends StatelessWidget {
       child: Scaffold(
         body: Obx(
           () => Visibility(
-            visible: _uiController.busy,
+            visible: controller.busy,
             replacement: _content,
             child: kIsWeb
                 ? Opacity(opacity: 0.5, child: _content)

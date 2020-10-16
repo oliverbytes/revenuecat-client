@@ -15,10 +15,10 @@ final logger = initLogger('AppsScreen');
 class AppsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final AccountController _uiController = Get.find();
+    final AccountController controller = Get.find();
 
     Widget _itemBuilder(context, index) {
-      final data = _uiController.apps[index];
+      final data = controller.apps[index];
 
       return AnimationConfiguration.staggeredList(
         position: index,
@@ -39,16 +39,16 @@ class AppsScreen extends StatelessWidget {
             () => Column(
               children: [
                 Visibility(
-                  visible: _uiController.apps.length == 0,
+                  visible: controller.apps.length == 0,
                   replacement: Expanded(
                     child: EasyRefresh(
                       header: MaterialHeader(),
                       footer: MaterialFooter(),
-                      onRefresh: _uiController.fetch,
-                      controller: _uiController.refreshController,
+                      onRefresh: controller.fetch,
+                      controller: controller.refreshController,
                       child: ListView.separated(
                         shrinkWrap: true,
-                        itemCount: _uiController.apps.length,
+                        itemCount: controller.apps.length,
                         itemBuilder: _itemBuilder,
                         separatorBuilder: (_, __) => Divider(),
                       ),
@@ -62,7 +62,7 @@ class AppsScreen extends StatelessWidget {
                         child: const Text('Refresh'),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        onPressed: _uiController.fetch,
+                        onPressed: controller.fetch,
                       ),
                     ),
                   ),
@@ -76,22 +76,22 @@ class AppsScreen extends StatelessWidget {
 
     return Obx(
       () => Visibility(
-        visible: _uiController.busy,
+        visible: controller.busy,
         replacement: Visibility(
-          visible: _uiController.error,
+          visible: controller.error,
           child: EmptyPlaceholder(
             iconData: Icons.error_outline,
-            message: _uiController.message.value,
+            message: controller.message(),
             child: OutlineButton(
               child: const Text('Refresh'),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
             ),
           ),
           replacement: Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: _uiController.fetch,
+              onPressed: controller.fetch,
               child: const Icon(Icons.refresh),
             ),
             body: _content,

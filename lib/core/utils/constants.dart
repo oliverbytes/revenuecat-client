@@ -10,6 +10,8 @@ const String kBaseAPIUrl = 'https://api.revenuecat.com/v1';
 
 final baseAPIUrl = (kIsWeb ? kCorsAnywhere : '') + kBaseAPIUrl;
 
+final String loginUrl = '$baseAPIUrl/developers/login';
+
 final String meUrl = '$baseAPIUrl/developers/me';
 
 final String overviewUrl = '$meUrl/overview';

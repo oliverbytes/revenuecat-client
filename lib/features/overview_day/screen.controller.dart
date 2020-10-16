@@ -137,12 +137,12 @@ class OverviewDayScreenController extends BaseController {
       bool breakLoop = false;
 
       result.fold((error) {
-        errorState(text: 'API Error: ${error.code}!\n${error.message}');
+        this.errorState(text: 'API Error: ${error.code}!\n${error.message}');
         breakLoop = true;
         return;
       }, (transactions) {
         if (transactions == null || transactions.isEmpty) {
-          errorState(text: 'No results');
+          this.errorState(text: 'No results');
           breakLoop = true;
           return;
         }

@@ -1,11 +1,11 @@
 import 'package:app/core/apis/base.api.dart';
 import 'package:app/core/models/account.model.dart';
 import 'package:app/core/models/api_error.model.dart';
+import 'package:app/core/models/hive/session.model.dart';
 import 'package:app/core/models/overview.model.dart';
 import 'package:app/core/models/transactions.model.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
-import 'package:dio/dio.dart';
 import 'package:either_option/either_option.dart';
 import 'package:get/get.dart';
 
@@ -14,39 +14,23 @@ final logger = initLogger('GeneralAPI');
 class GeneralAPI extends BaseAPI {
   static GeneralAPI get to => Get.find();
 
-  Future<Either<ApiError, bool>> isTokenValid(String token) async {
+  Future<Either<ApiError, Session>> login(String email, String password) async {
     if (!await internetConnected())
       return Left(ApiError(code: 0, message: kInternetError));
 
-    final options = BaseOptions(
-      headers: {
-        'Authorization': token,
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      method: 'GET',
-      responseType: ResponseType.json,
-      contentType: 'application/json',
-      connectTimeout: 15000,
-      receiveTimeout: 15000,
+    final result = await baseRequest(
+      function: "login",
+      headers: {'X-Requested-With': 'XMLHttpRequest'},
+      url: loginUrl,
+      debug: true,
+      method: 'POST',
+      params: {'email': email, 'password': password},
     );
 
-    try {
-      final response = await Dio(options).get(overviewUrl);
-      logger.i('status: ${response.statusCode}, data: ${response.data}');
-      return Right(true);
-    } on DioError catch (e) {
-      logger.e('dio error. error: ${e.error}');
-
-      return Left(
-        ApiError(
-          code: 0,
-          message: 'Please verify your token freshly copied and valid.',
-        ),
-      );
-    } catch (e) {
-      logger.e('network error. error: $e');
-      return Left(ApiError(code: 0, message: '$kInternetError: $e'));
-    }
+    return result.fold(
+      (error) => Left(error),
+      (data) => Right(Session.fromJson(data)),
+    );
   }
 
   Future<Either<ApiError, Overview>> overview() async {

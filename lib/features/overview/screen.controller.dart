@@ -47,10 +47,11 @@ class OverviewScreenController extends BaseController {
 
     result.fold(
       (error) =>
-          errorState(text: 'API Error: ${error.code}!\n${error.message}'),
-      (data) => overview.value = data,
+          this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
+      (data) {
+        overview.value = data;
+        this.idleState();
+      },
     );
-
-    this.idleState();
   }
 }

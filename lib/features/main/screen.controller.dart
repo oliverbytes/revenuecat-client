@@ -1,10 +1,11 @@
 import 'package:app/core/controllers/account.controller.dart';
-import 'package:app/core/managers/hive.manager.dart';
+import 'package:app/core/models/hive/session.model.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
+import 'package:app/core/utils/utils.dart';
 import 'package:app/features/apps/screen.dart';
-import 'package:app/features/authentication/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
+import 'package:app/features/login/screen.dart';
 import 'package:app/features/overview/screen.controller.dart';
 import 'package:app/features/overview/screen.dart';
 import 'package:app/features/overview_day/screen.controller.dart';
@@ -38,22 +39,28 @@ class MainScreenController extends GetxController {
 
   // GETTERS
 
-  // INIT
   @override
-  void onInit() {
-    Get.put(AccountController());
-    Get.put(OverviewScreenController());
-    Get.put(OverviewDayScreenController());
-    Get.put(TransactionsScreenController());
-
-    if (HiveManager.clientToken.isNotEmpty) refresh();
+  void onInit() async {
+    await Session.init();
     logger.w('onInit');
-    super.onInit();
   }
 
+  // INIT
   @override
-  void onReady() {
-    if (HiveManager.clientToken.isEmpty) Get.to(AuthScreen());
+  void onReady() async {
+    if (Session.authenticated) {
+      if (!Session.expired) {
+        refresh();
+      } else {
+        logger.e('Session Expired! Re-logging in...');
+        Utils.showSnackBar(
+            title: 'Session Expired', message: 'Re-logging in...');
+        await Session.relogin();
+      }
+    } else {
+      Get.to(LoginScreen());
+    }
+
     logger.w('onReady');
     super.onInit();
   }
@@ -77,8 +84,8 @@ class MainScreenController extends GetxController {
         image: Icon(Icons.exit_to_app, size: 100),
         button: 'Log Out',
         pressed: () {
-          HiveManager.setClientToken('');
-          Get.to(AuthScreen());
+          Session.logout();
+          Get.to(LoginScreen());
         },
       ),
     );

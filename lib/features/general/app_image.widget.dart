@@ -18,7 +18,21 @@ class AppImage extends StatelessWidget {
     final imageUrl = HiveManager.getAppImageUrl(app.id);
     final editingController = TextEditingController(text: imageUrl);
 
-    void _setAppImageUrl() {
+    void _updateAppImageUrl() {
+      void _update() async {
+        if (editingController.text.isNotEmpty) {
+          await HiveManager.setAppImageUrl(app.id, editingController.text);
+
+          Utils.showSnackBar(
+              title: 'App Image Set Successfully',
+              message: 'Refresh to take effect.');
+        } else {
+          Utils.showSnackBar(
+              title: 'App Image Set Error',
+              message: 'Please enter a valid image url.');
+        }
+      }
+
       Get.generalDialog(
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (_, __, ___) => CustomDialog(
@@ -27,7 +41,7 @@ class AppImage extends StatelessWidget {
           image:
               CachedNetworkImage(imageUrl: imageUrl, width: 100, height: 100),
           child: TextFormField(
-            autovalidate: true,
+            autovalidateMode: AutovalidateMode.always,
             controller: editingController,
             decoration:
                 InputDecoration(hintText: 'https://appimage.url/here.png'),
@@ -37,26 +51,14 @@ class AppImage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           button: 'Update',
-          pressed: () async {
-            if (editingController.text.isNotEmpty) {
-              await HiveManager.setAppImageUrl(app.id, editingController.text);
-
-              Utils.showSnackBar(
-                  title: 'App Image Set Successfully',
-                  message: 'Refresh to take effect.');
-            } else {
-              Utils.showSnackBar(
-                  title: 'App Image Set Error',
-                  message: 'Please enter a valid image url.');
-            }
-          },
+          pressed: _update,
         ),
       );
     }
 
     return InkWell(
       child: CachedNetworkImage(imageUrl: imageUrl, width: size, height: size),
-      onTap: _setAppImageUrl,
+      onTap: _updateAppImageUrl,
     );
   }
 }

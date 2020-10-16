@@ -1,19 +1,17 @@
 import 'package:app/features/main/screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'core/apis/general.api.dart';
 import 'core/managers/hive.manager.dart';
 import 'core/utils/constants.dart';
 
-void main() {
-  _init();
-}
+void main() => _init();
 
 void _init() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GestureBinding.instance.resamplingEnabled = true;
   await HiveManager.init();
-  Get.put(GeneralAPI());
   runApp(App());
 }
 
@@ -23,6 +21,7 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       title: kApptitle,
       home: MainScreen(),
+      initialBinding: MainScreenBinding(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,

@@ -1,6 +1,11 @@
+import 'package:app/core/apis/general.api.dart';
+import 'package:app/core/controllers/account.controller.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/general_tab_bar.dart';
+import 'package:app/features/overview/screen.controller.dart';
+import 'package:app/features/overview_day/screen.controller.dart';
+import 'package:app/features/transactions/screen.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
@@ -9,11 +14,21 @@ import 'screen.controller.dart';
 
 final logger = initLogger('MainScreen');
 
-class MainScreen extends StatelessWidget {
+class MainScreenBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(GeneralAPI());
+    Get.put(AccountController());
+    Get.put(OverviewScreenController());
+    Get.put(OverviewDayScreenController());
+    Get.put(TransactionsScreenController());
+    Get.put(MainScreenController());
+  }
+}
+
+class MainScreen extends GetView<MainScreenController> {
   @override
   Widget build(BuildContext context) {
-    final _uiController = Get.put(MainScreenController());
-
     final _title = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -32,18 +47,18 @@ class MainScreen extends StatelessWidget {
       bottom: const GeneralTabbar(),
       actions: [
         IconButton(
-          onPressed: _uiController.about,
+          onPressed: controller.about,
           icon: const Icon(Entypo.dots_two_vertical),
         ),
       ],
     );
 
     return DefaultTabController(
-      length: _uiController.screens.length,
+      length: controller.screens.length,
       initialIndex: 0,
       child: Scaffold(
         appBar: _appBar,
-        body: TabBarView(children: _uiController.screens),
+        body: TabBarView(children: controller.screens),
       ),
     );
   }
