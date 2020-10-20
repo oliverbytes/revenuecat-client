@@ -24,7 +24,7 @@ dependencies:
   device_info: 0.4.2+9
   package_info: 0.4.3
   #MEDIA
-  cached_network_image: 2.3.2+1
+  cached_network_image: 2.3.3
   flutter_spinkit: 4.1.2+1
   flutter_icons: 1.1.0
   #NETWORK
