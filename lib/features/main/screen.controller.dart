@@ -25,7 +25,6 @@ class MainScreenController extends GetxController {
   static MainScreenController get to => Get.find();
 
   // VARIABLES
-  final pageController = PageController();
 
   final List<Widget> screens = [
     OverviewScreen(),
@@ -35,7 +34,6 @@ class MainScreenController extends GetxController {
   ];
 
   // PROPERTIES
-  final pageIndex = 0.obs;
 
   // GETTERS
 
@@ -43,6 +41,7 @@ class MainScreenController extends GetxController {
   void onInit() async {
     await Session.init();
     logger.w('onInit');
+    super.onInit();
   }
 
   // INIT
@@ -62,7 +61,7 @@ class MainScreenController extends GetxController {
     }
 
     logger.w('onReady');
-    super.onInit();
+    super.onReady();
   }
 
   // FUNCTIONS
@@ -132,10 +131,5 @@ class MainScreenController extends GetxController {
         pressed: logOut,
       ),
     );
-  }
-
-  void pageChanged(index) {
-    pageIndex.value = index;
-    pageController.jumpToPage(index);
   }
 }

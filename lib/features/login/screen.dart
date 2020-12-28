@@ -76,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                 () => RaisedButton(
                   onPressed:
                       controller.ready() ? () => controller.login() : null,
-                  child: const Text('Validate Token'),
+                  child: const Text('Login'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),

@@ -46,15 +46,15 @@ class AccountController extends BaseController {
   Future<void> fetch() async {
     this.busyState();
     account.value = Account();
-    final result = await _api.account();
 
-    result.fold(
-      (error) =>
-          errorState(text: 'API Error: ${error.code}!\n${error.message}'),
-      (data) {
-        account.value = data;
-      },
-    );
+    await _api.account()
+      ..fold(
+        (error) => this
+            .errorState(text: 'API Error: ${error.code}!\n${error.message}'),
+        (data) {
+          account.value = data;
+        },
+      );
 
     this.idleState();
   }

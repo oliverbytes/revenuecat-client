@@ -52,7 +52,7 @@ class TransactionsScreenController extends BaseController {
       (error) =>
           this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
       (transactions) {
-        data.value = transactions;
+        data.assignAll(transactions);
         this.idleState();
       },
     );
@@ -83,7 +83,7 @@ class TransactionsScreenController extends BaseController {
       (error) =>
           this.errorState(text: 'API Error: ${error.code}!\n${error.message}'),
       (transactions) {
-        data.value = transactions;
+        data.assignAll(transactions);
         this.idleState();
       },
     );
@@ -100,7 +100,13 @@ class TransactionsScreenController extends BaseController {
     if (selectedDate == null) return;
 
     date.value = DateTime(
-        selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59);
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+      23,
+      59,
+      59,
+    );
 
     fetch();
   }

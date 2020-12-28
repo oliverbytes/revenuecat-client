@@ -2,7 +2,7 @@ import 'package:app/core/models/api_error.model.dart';
 import 'package:app/core/models/hive/session.model.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:either_option/either_option.dart';
 import 'package:get/get.dart';
 
@@ -25,16 +25,16 @@ class BaseAPI extends GetxController {
     final bool debug = false,
     final String method = 'GET',
   }) async {
-    final _dio = Dio(BaseOptions(
+    final _dio = dio.Dio(dio.BaseOptions(
       headers: headers,
       method: method,
-      responseType: ResponseType.json,
+      responseType: dio.ResponseType.json,
       contentType: 'application/json',
       connectTimeout: timeout,
       receiveTimeout: timeout,
     ));
 
-    Response<Map<String, dynamic>> response;
+    dio.Response<Map<String, dynamic>> response;
 
     try {
       if (method == 'GET') {
@@ -49,7 +49,7 @@ class BaseAPI extends GetxController {
       }
 
       return Right(response.data);
-    } on DioError catch (e) {
+    } on dio.DioError catch (e) {
       logger.e(
           'dio error. function: $function, error: ${e.error}, data: ${e.response.data}');
       if (e.response.data != null) {

@@ -55,7 +55,6 @@ class MainScreen extends GetView<MainScreenController> {
 
     return DefaultTabController(
       length: controller.screens.length,
-      initialIndex: 0,
       child: Scaffold(
         appBar: _appBar,
         body: TabBarView(children: controller.screens),
