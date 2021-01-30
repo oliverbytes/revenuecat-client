@@ -51,8 +51,13 @@ class BaseAPI extends GetxController {
       return Right(response.data);
     } on dio.DioError catch (e) {
       logger.e(
-          'dio error. function: $function, error: ${e.error}, data: ${e.response.data}');
-      if (e.response.data != null) {
+          'dio error. function: $function, error: ${e.error}, data: ${e.response?.data}');
+
+      if (e.response == null) {
+        return Left(ApiError(code: 1, message: 'Null Response'));
+      }
+
+      if (e.response?.data != null) {
         return Left(ApiError.fromJson(e.response.data));
       }
 
@@ -60,7 +65,7 @@ class BaseAPI extends GetxController {
         ApiError(
           code: 1,
           message:
-              'Status: ${e.response.statusCode}, Error: ${e.error}, Data: ${e.response.data}',
+              'Status: ${e.response.statusCode}, Error: ${e.error}, Data: ${e.response?.data}',
         ),
       );
     } catch (e) {
