@@ -2,7 +2,6 @@ import 'package:app/core/controllers/account.controller.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/features/general/empty_placeholder.widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
@@ -149,11 +148,14 @@ class OverviewScreen extends GetView<OverviewScreenController> {
           child: EmptyPlaceholder(
             iconData: Icons.error_outline,
             message: controller.message(),
-            child: OutlineButton(
+            child: OutlinedButton(
               child: Text('Refresh'),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
               onPressed: controller.fetch,
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
           ),
           replacement: Scaffold(
@@ -164,19 +166,17 @@ class OverviewScreen extends GetView<OverviewScreenController> {
             body: _content,
           ),
         ),
-        child: kIsWeb
-            ? Opacity(opacity: 0.5, child: _content)
-            : Center(
-                child: SizedBox(
-                  height: Get.mediaQuery.size.height,
-                  width: Get.mediaQuery.size.height,
-                  child: Shimmer.fromColors(
-                    child: _content,
-                    baseColor: Colors.grey.withOpacity(0.5),
-                    highlightColor: Colors.white,
-                  ),
-                ),
-              ),
+        child: Center(
+          child: SizedBox(
+            height: Get.mediaQuery.size.height,
+            width: Get.mediaQuery.size.height,
+            child: Shimmer.fromColors(
+              child: _content,
+              baseColor: Colors.grey.withOpacity(0.5),
+              highlightColor: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }

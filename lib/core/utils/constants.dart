@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 const String kApptitle = 'RevenueCat';
 
-const String kCorsAnywhere = 'https://cors-anywhere.herokuapp.com/';
+const String kCorsAnywhere = 'https://cors.bridged.cc/';
 
 const String kBaseAPIUrl = 'https://api.revenuecat.com/v1';
 

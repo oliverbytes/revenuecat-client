@@ -19,7 +19,7 @@ class TransactionsScreenController extends BaseController {
   final searchFocusNode = FocusNode();
 
   // PROPERTIES
-  final data = List<Transaction>().obs;
+  final data = <Transaction>[].obs;
   final date = DateTime.now().obs;
   final ready = false.obs;
 

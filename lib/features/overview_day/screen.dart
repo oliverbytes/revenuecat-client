@@ -41,7 +41,7 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
                         ),
                       ),
                       Obx(
-                        () => FlatButton.icon(
+                        () => TextButton.icon(
                           onPressed: () => controller.selectDate(context),
                           icon: const Icon(Icons.date_range, size: 20),
                           label: Text(
@@ -212,11 +212,14 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
           child: EmptyPlaceholder(
             iconData: Icons.error_outline,
             message: controller.message(),
-            child: OutlineButton(
+            child: OutlinedButton(
               child: const Text('Refresh'),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
               onPressed: controller.fetch,
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
           ),
           replacement: Scaffold(
@@ -227,19 +230,17 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
             body: _content,
           ),
         ),
-        child: kIsWeb
-            ? Opacity(opacity: 0.5, child: _content)
-            : Center(
-                child: SizedBox(
-                  height: Get.mediaQuery.size.height,
-                  width: Get.mediaQuery.size.height,
-                  child: Shimmer.fromColors(
-                    child: _content,
-                    baseColor: Colors.grey.withOpacity(0.5),
-                    highlightColor: Colors.white,
-                  ),
-                ),
-              ),
+        child: Center(
+          child: SizedBox(
+            height: Get.mediaQuery.size.height,
+            width: Get.mediaQuery.size.height,
+            child: Shimmer.fromColors(
+              child: _content,
+              baseColor: Colors.grey.withOpacity(0.5),
+              highlightColor: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }

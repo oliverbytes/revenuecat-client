@@ -72,8 +72,10 @@ class CustomDialog extends StatelessWidget {
                   ],
                   if (button != null && pressed != null) ...[
                     const Divider(height: 0),
-                    FlatButton(
-                      color: Colors.transparent,
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                      ),
                       child: Text(
                         button,
                         style: TextStyle(
