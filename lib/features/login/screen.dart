@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.w700),
                 decoration: InputDecoration(hintText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.send,
+                textInputAction: TextInputAction.next,
                 onSubmitted: (_) => controller.login(),
                 onChanged: (text) => controller.ready(text.isNotEmpty),
               ),

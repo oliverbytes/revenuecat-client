@@ -28,6 +28,7 @@ class LoginScreenController extends BaseController {
 
   void login() async {
     this.busyState();
+
     final email = emailEditingController.text.trim();
     final password = passwordEditingController.text.trim();
     final result = await GeneralAPI.to.login(email, password);

@@ -11,25 +11,25 @@ dependencies:
     sdk: flutter
 
   #UTILS
-  get: 4.3.8
+  get: 4.6.1
   hive: 2.0.4
   hive_flutter: 1.1.0
-  url_launcher: 6.0.9
+  url_launcher: 6.0.17
   timeago: 3.1.0
-  logger: 1.0.0
+  logger: 1.1.0
   intl: 0.17.0
-  supercharged: 2.0.0
-  either_option: 1.0.6
+  supercharged: 2.1.1
+  either_option: 2.0.0
   #INFO
-  device_info: 2.0.2
-  package_info: 2.0.2
+  device_info_plus: ^3.1.1
+  package_info_plus: ^1.3.0
   #MEDIA
-  cached_network_image: 3.1.0
-  flutter_spinkit: 5.0.0
+  cached_network_image: 3.2.0
+  flutter_spinkit: 5.1.0
   flutter_icons: 1.1.0
   #NETWORK
-  dio: 4.0.0
-  connectivity: 3.0.6
+  dio: 4.0.4
+  connectivity_plus: ^2.1.0
   #UI
   flutter_staggered_animations: 1.0.0
   flutter_easyrefresh: 2.2.1
@@ -40,10 +40,10 @@ dependencies:
 
 # DEVELOPER DEPENDENCIES
 dev_dependencies:
-  build_runner: 2.1.1
-  flutter_launcher_icons: 0.9.1
-  hive_generator: 1.1.0
-  flutter_native_splash: 1.2.1
+  build_runner: 2.1.5
+  flutter_launcher_icons: 0.9.2
+  hive_generator: 1.1.1
+  flutter_native_splash: 1.3.2
 
 # SPLASH SCREEN GENERATOR
 flutter_native_splash:

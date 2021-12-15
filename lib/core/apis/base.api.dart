@@ -1,7 +1,7 @@
 import 'package:app/core/models/api_error.model.dart';
 import 'package:app/core/models/hive/session.model.dart';
 import 'package:app/core/utils/logger.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:either_option/either_option.dart';
 import 'package:get/get.dart';
