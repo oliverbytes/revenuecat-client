@@ -121,8 +121,15 @@ class OverviewDayScreenController extends BaseController {
 
     _clear();
 
-    final _startDate = DateTime(startDate.value.year, startDate.value.month,
-        startDate.value.day, 23, 59, 59);
+    final _startDate = DateTime(
+      startDate.value.year,
+      startDate.value.month,
+      startDate.value.day,
+      23,
+      59,
+      59,
+    );
+
     _nextTimestamp = _startDate.millisecondsSinceEpoch;
 
     logger.i('start day: ${_startDate.day}'); // past
@@ -172,30 +179,44 @@ class OverviewDayScreenController extends BaseController {
     Transaction _lastPurchase, _lastRenewal, _lastConversion;
 
     await Future.forEach(overviewTransactions, (Transaction e) {
-      if (e.platform.name == 'android') {
-        revenueAndroid.value += e.revenue;
+      double revenue = e.revenue == null ? 0 : e.revenue;
+
+      if (e.platform.name == 'google') {
+        revenueAndroid.value += revenue;
         transactionsAndroid.value++;
 
-        if (e.revenue > 0) purchasesAndroid.value++;
-        if (e.isRenewal) renewalsAndroid.value++;
+        if (revenue > 0) purchasesAndroid.value++;
+        if (e.isRealRenewal) renewalsAndroid.value++;
         if (e.isTrialConversion) trialConversionsAndroid.value++;
-        if (e.isTrialPeriod) trialsAndroid.value++;
         if (e.expiresDate != null) subscribersAndroid.value++;
         if (e.wasRefunded) refundsAndroid.value++;
-      } else if (e.platform.name == 'ios') {
-        revenueIOS.value += e.revenue;
+
+        if (e.isTrialPeriod &&
+            !e.isTrialConversion &&
+            !e.wasRefunded &&
+            !e.isRealRenewal) {
+          trialsAndroid.value++;
+        }
+      } else if (e.platform.name == 'apple') {
+        revenueIOS.value += revenue;
         transactionsIOS.value++;
 
-        if (e.revenue > 0) purchasesIOS.value++;
-        if (e.isRenewal) renewalsIOS.value++;
+        if (revenue > 0) purchasesIOS.value++;
+        if (e.isRealRenewal) renewalsIOS.value++;
         if (e.isTrialConversion) trialConversionsIOS.value++;
-        if (e.isTrialPeriod) trialsIOS.value++;
         if (e.expiresDate != null) subscribersIOS.value++;
         if (e.wasRefunded) refundsIOS.value++;
+
+        if (e.isTrialPeriod &&
+            !e.isTrialConversion &&
+            !e.wasRefunded &&
+            !e.isRealRenewal) {
+          trialsIOS.value++;
+        }
       }
 
-      if (e.revenue > 0 && _lastPurchase == null) _lastPurchase = e;
-      if (e.isRenewal && _lastRenewal == null) _lastRenewal = e;
+      if (revenue > 0 && _lastPurchase == null) _lastPurchase = e;
+      if (e.isRealRenewal && _lastRenewal == null) _lastRenewal = e;
       if (e.isTrialConversion && _lastConversion == null) _lastConversion = e;
     });
 

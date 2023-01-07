@@ -5,7 +5,6 @@ import 'package:app/core/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 
 final logger = initLogger("TransactionsScreenController");

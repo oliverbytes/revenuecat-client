@@ -66,6 +66,8 @@ class Transaction {
   final String subscriberId;
   final bool wasRefunded;
 
+  bool get isRealRenewal => isRenewal && (revenue ?? 0) > 0;
+
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
         app: json["app"] == null ? null : App.fromJson(json["app"]),
         expiresDate: json["expires_date"] == null
@@ -123,9 +125,9 @@ class Transaction {
 
   Status get platform {
     if (storeTransactionIdentifier.contains('GPA')) {
-      return Status('android', Colors.lightGreenAccent.withOpacity(0.6));
+      return Status('google', Colors.lightGreenAccent.withOpacity(0.6));
     } else {
-      return Status('ios', Colors.white);
+      return Status('apple', Colors.white);
     }
   }
 
@@ -134,7 +136,7 @@ class Transaction {
 
     if (isInIntroductoryPricePeriod) {
       value.add(Status('introductory price', Colors.purple));
-    } else if (isRenewal) {
+    } else if (isRealRenewal) {
       value.add(Status('renewal', Colors.lightBlue));
     } else if (isTrialPeriod) {
       value.add(Status('trial', Colors.grey));
@@ -145,7 +147,11 @@ class Transaction {
     } else if (isSandbox) {
       value.add(Status('sandbox', Colors.white));
     } else {
-      value.add(Status('purchased', Colors.lightGreen));
+      if (productIdentifier.contains('rc_promo')) {
+        value.add(Status('promo', Colors.pinkAccent));
+      } else {
+        value.add(Status('purchased', Colors.lightGreen));
+      }
     }
 
     return value;

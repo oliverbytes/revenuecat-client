@@ -89,6 +89,22 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
                     ),
                   ),
                 ),
+                ListTile(
+                  leading: const Icon(Icons.access_alarm),
+                  title: const Text('New Trials'),
+                  subtitle: Obx(
+                    () => OverviewSubtitle(
+                      androidText: controller.trialsAndroid().toString(),
+                      iosText: controller.trialsIOS().toString(),
+                    ),
+                  ),
+                  trailing: Obx(
+                    () => TrailingWidget(
+                      text: controller.trialsCount.toString(),
+                      textColor: Colors.white,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 10),
                 ListTile(
                   leading: const Icon(Icons.refresh),
@@ -130,38 +146,23 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
                     ),
                   ),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.person_add),
-                  title: const Text('Subscribers'),
-                  subtitle: Obx(
-                    () => OverviewSubtitle(
-                      androidText: controller.subscribersAndroid().toString(),
-                      iosText: controller.subscribersIOS().toString(),
-                    ),
-                  ),
-                  trailing: Obx(
-                    () => TrailingWidget(
-                      text: controller.subscribersCount.toString(),
-                      textColor: Colors.white,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.access_alarm),
-                  title: const Text('Trials'),
-                  subtitle: Obx(
-                    () => OverviewSubtitle(
-                      androidText: controller.trialsAndroid().toString(),
-                      iosText: controller.trialsIOS().toString(),
-                    ),
-                  ),
-                  trailing: Obx(
-                    () => TrailingWidget(
-                      text: controller.trialsCount.toString(),
-                      textColor: Colors.white,
-                    ),
-                  ),
-                ),
+                // ListTile(
+                //   leading: const Icon(Icons.person_add),
+                //   title: const Text('Subscribers'),
+                //   subtitle: Obx(
+                //     () => OverviewSubtitle(
+                //       androidText: controller.subscribersAndroid().toString(),
+                //       iosText: controller.subscribersIOS().toString(),
+                //     ),
+                //   ),
+                //   trailing: Obx(
+                //     () => TrailingWidget(
+                //       text: controller.subscribersCount.toString(),
+                //       textColor: Colors.white,
+                //     ),
+                //   ),
+                // ),
+
                 ListTile(
                   leading: const Icon(Icons.money_off),
                   title: const Text('Refunds'),

@@ -20,7 +20,9 @@ class TransactionsTile extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
             margin: EdgeInsets.only(right: 5),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5), color: e.color),
+              borderRadius: BorderRadius.circular(5),
+              color: e.color,
+            ),
             child: Text(
               e.name.toUpperCase(),
               style: const TextStyle(
@@ -56,7 +58,7 @@ class TransactionsTile extends StatelessWidget {
         Wrap(
           children: [
             Icon(
-              object.platform.name == 'android'
+              object.platform.name == 'google'
                   ? Icons.android
                   : Entypo.app_store,
               color: object.platform.color,
@@ -79,7 +81,9 @@ class TransactionsTile extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: object.revenue > 0
                 ? Colors.lightGreen
-                : object.revenue < 0 ? Colors.red : Colors.grey,
+                : object.revenue < 0
+                    ? Colors.red
+                    : Colors.grey,
           ),
         ),
         Text(

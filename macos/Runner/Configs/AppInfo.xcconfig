@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = revenuecat_client
+PRODUCT_NAME = revenuecat
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.revenuecatClient
+PRODUCT_BUNDLE_IDENTIFIER = com.example.revenuecat
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2020 com.revenuecat. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.

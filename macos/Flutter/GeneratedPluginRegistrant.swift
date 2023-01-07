@@ -5,9 +5,9 @@
 import FlutterMacOS
 import Foundation
 
-import connectivity_plus_macos
-import device_info_plus_macos
-import package_info_plus_macos
+import connectivity_plus
+import device_info_plus
+import package_info_plus
 import path_provider_macos
 import sqflite
 import url_launcher_macos
