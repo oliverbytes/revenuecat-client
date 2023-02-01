@@ -15,11 +15,11 @@ class GeneralTabbar extends StatelessWidget with PreferredSizeWidget {
         splashColor: Colors.transparent,
       ),
       child: TabBar(
-        tabs: [
+        tabs: const [
           Tab(text: 'OVERVIEW'),
           Tab(text: 'DAY'),
           Tab(text: 'TRANSACTIONS'),
-          Tab(text: 'APPS'),
+          // Tab(text: 'APPS'),
         ],
         isScrollable: true,
         labelStyle: TextStyle(fontWeight: FontWeight.bold),

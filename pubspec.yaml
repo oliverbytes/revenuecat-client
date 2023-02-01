@@ -37,6 +37,8 @@ dependencies:
   flutter_linkify: 5.0.2
   shimmer: 2.0.0
   step_progress_indicator: 1.0.2
+  locale_emoji_flutter: ^0.2.1
+  emoji_flag_converter: ^1.1.0
 
 # DEVELOPER DEPENDENCIES
 dev_dependencies:
@@ -44,6 +46,7 @@ dev_dependencies:
   flutter_launcher_icons: 0.11.0
   hive_generator: 2.0.0
   flutter_native_splash: 2.2.16
+  flutter_lints: ^2.0.1
 
 # SPLASH SCREEN GENERATOR
 flutter_native_splash:

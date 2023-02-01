@@ -17,6 +17,7 @@ class App {
     this.id,
     this.macAppStoreSharedSecret,
     this.name,
+    this.iconUrl,
     this.newOfferingsEnabled,
     this.playStoreCredentials,
     this.playStorePackageName,
@@ -42,6 +43,7 @@ class App {
   final String id;
   final dynamic macAppStoreSharedSecret;
   final String name;
+  final String iconUrl;
   final bool newOfferingsEnabled;
   final String playStoreCredentials;
   final String playStorePackageName;
@@ -87,6 +89,7 @@ class App {
         id: json["id"] == null ? null : json["id"],
         macAppStoreSharedSecret: json["mac_app_store_shared_secret"],
         name: json["name"] == null ? null : json["name"],
+        iconUrl: json["icon_url"] == null ? null : json["icon_url"],
         newOfferingsEnabled: json["new_offerings_enabled"] == null
             ? null
             : json["new_offerings_enabled"],
@@ -137,6 +140,7 @@ class App {
         "id": id == null ? null : id,
         "mac_app_store_shared_secret": macAppStoreSharedSecret,
         "name": name == null ? null : name,
+        "icon_url": iconUrl == null ? null : iconUrl,
         "new_offerings_enabled":
             newOfferingsEnabled == null ? null : newOfferingsEnabled,
         "play_store_credentials":

@@ -48,6 +48,7 @@ class Transaction {
     this.purchaseDate,
     this.revenue,
     this.storeTransactionIdentifier,
+    this.subscriberCountryCode,
     this.subscriberId,
     this.wasRefunded,
   });
@@ -63,6 +64,7 @@ class Transaction {
   final DateTime purchaseDate;
   final double revenue;
   final String storeTransactionIdentifier;
+  final String subscriberCountryCode;
   final String subscriberId;
   final bool wasRefunded;
 
@@ -90,12 +92,13 @@ class Transaction {
         purchaseDate: json["purchase_date"] == null
             ? null
             : DateTime.parse(json["purchase_date"]).toLocal(),
-        revenue: json["revenue"] == null ? null : json["revenue"].toDouble(),
+        revenue: json["revenue"] == null ? 0 : json["revenue"].toDouble(),
         storeTransactionIdentifier: json["store_transaction_identifier"] == null
             ? null
             : json["store_transaction_identifier"],
         subscriberId:
             json["subscriber_id"] == null ? null : json["subscriber_id"],
+        subscriberCountryCode: json["subscriber_country_code"] ?? '',
         wasRefunded: json["was_refunded"] == null ? null : json["was_refunded"],
       );
 
@@ -120,6 +123,8 @@ class Transaction {
             ? null
             : storeTransactionIdentifier,
         "subscriber_id": subscriberId == null ? null : subscriberId,
+        "subscriber_country_code":
+            subscriberCountryCode == null ? null : subscriberCountryCode,
         "was_refunded": wasRefunded == null ? null : wasRefunded,
       };
 

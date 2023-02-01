@@ -1,24 +1,25 @@
 import 'package:app/core/models/transactions.model.dart';
 import 'package:app/core/utils/utils.dart';
-import 'package:app/features/general/app_image.widget.dart';
 import 'package:app/features/general/selection.sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:emoji_flag_converter/emoji_flag_converter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TransactionsTile extends StatelessWidget {
   final Transaction object;
-  const TransactionsTile(this.object);
+  const TransactionsTile(this.object, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _subTitleStyle = TextStyle(color: Colors.grey);
+    const subTitleStyle = TextStyle(color: Colors.grey);
 
-    final _badges = object.statuses
+    final badges = object.statuses
         .map(
           (e) => Container(
-            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-            margin: EdgeInsets.only(right: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+            margin: const EdgeInsets.only(right: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: e.color,
@@ -35,28 +36,41 @@ class TransactionsTile extends StatelessWidget {
         )
         .toList();
 
-    final _title = Text(
+    final title = Text(
       object.app.name,
       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
     );
 
-    final _subTitle = Column(
+    final subTitle = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           object.productIdentifier,
-          style: _subTitleStyle,
+          style: subTitleStyle,
           overflow: TextOverflow.ellipsis,
         ),
         if (object.expiresDate != null) ...[
           Text(
-            'Expires: ${DateFormat.yMMMEd().format(object.expiresDate)}',
-            style: _subTitleStyle,
+            'Renews: ${DateFormat.yMMMEd().format(object.expiresDate)}',
+            style: subTitleStyle,
           ),
         ],
         const SizedBox(height: 5),
         Wrap(
           children: [
+            Text(
+              object.subscriberCountryCode.isNotEmpty
+                  ? EmojiConverter.fromAlpha2CountryCode(
+                      object.subscriberCountryCode,
+                    )
+                  : '🌍',
+            ),
+            const SizedBox(width: 5),
+            Text(
+              object.subscriberCountryCode,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(width: 5),
             Icon(
               object.platform.name == 'google'
                   ? Icons.android
@@ -65,13 +79,13 @@ class TransactionsTile extends StatelessWidget {
               size: 13,
             ),
             const SizedBox(width: 5),
-            ..._badges,
+            ...badges,
           ],
         ),
       ],
     );
 
-    final _trailing = Column(
+    final trailing = Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
@@ -87,7 +101,7 @@ class TransactionsTile extends StatelessWidget {
           ),
         ),
         Text(
-          Utils.getTimeAgo(dateTime: object.purchaseDate, short: true) + ' ago',
+          '${Utils.getTimeAgo(dateTime: object.purchaseDate, short: true)} ago',
           style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
         Text(
@@ -97,7 +111,7 @@ class TransactionsTile extends StatelessWidget {
       ],
     );
 
-    void _onTap() async {
+    void onTap() async {
       List<BaseSelection> selections = [
         BaseSelection(
             action: SelectionAction.COPY_TRANSACTION_ID,
@@ -127,11 +141,15 @@ class TransactionsTile extends StatelessWidget {
     }
 
     return ListTile(
-      leading: AppImage(app: object.app),
-      title: _title,
-      subtitle: _subTitle,
-      trailing: _trailing,
-      onTap: _onTap,
+      leading: CachedNetworkImage(
+        imageUrl: 'https://www.appatar.io/${object.app.bundleId}/small',
+        width: 50,
+        height: 50,
+      ),
+      title: title,
+      subtitle: subTitle,
+      trailing: trailing,
+      onTap: onTap,
     );
   }
 }

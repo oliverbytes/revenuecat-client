@@ -3,7 +3,6 @@ import 'package:app/core/models/hive/session.model.dart';
 import 'package:app/core/utils/constants.dart';
 import 'package:app/core/utils/logger.dart';
 import 'package:app/core/utils/utils.dart';
-import 'package:app/features/apps/screen.dart';
 import 'package:app/features/general/custom_dialog.widget.dart';
 import 'package:app/features/login/screen.dart';
 import 'package:app/features/overview/screen.controller.dart';
@@ -30,7 +29,7 @@ class MainScreenController extends GetxController {
     OverviewScreen(),
     OverviewDayScreen(),
     TransactionsScreen(),
-    AppsScreen(),
+    // AppsScreen(),
   ];
 
   // PROPERTIES
