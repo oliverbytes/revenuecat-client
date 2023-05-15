@@ -70,22 +70,39 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
                   title: const Text('Revenue'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      text: 'Last: ' +
-                          controller.lastPurchaseDetails +
-                          '\nPurchases: ' +
-                          controller.purchasesCount.toString(),
-                      androidText: controller.revenueAndroidString +
-                          ' - ' +
-                          controller.purchasesAndroid().toString(),
-                      iosText: controller.revenueIOSString +
-                          ' - ' +
-                          controller.purchasesIOS().toString(),
+                      text:
+                          'Last: ${controller.lastPurchaseDetails}\nPurchases: ${controller.purchasesCount}',
+                      androidText:
+                          '${controller.revenueAndroidString} - ${controller.purchasesAndroid()}',
+                      iosText:
+                          '${controller.revenueIOSString} - ${controller.purchasesIOS()}',
                     ),
                   ),
+                  // trailing: Obx(
+                  //   () => TrailingWidget(
+                  //     text: controller.revenueTotal,
+                  //     textColor: Colors.lightGreen,
+                  //   ),
+                  // ),
                   trailing: Obx(
-                    () => TrailingWidget(
-                      text: controller.revenueTotal,
-                      textColor: Colors.lightGreen,
+                    () => Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          controller.revenueTotal,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ).copyWith(color: Colors.lightGreen),
+                        ),
+                        Text(
+                          controller.revenueTotalPhp,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -107,31 +124,11 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
                 ),
                 const SizedBox(height: 10),
                 ListTile(
-                  leading: const Icon(Icons.refresh),
-                  title: const Text('Renewals'),
-                  subtitle: Obx(
-                    () => OverviewSubtitle(
-                      text: 'Last: ' + controller.lastRenewalDate,
-                      androidText: controller.renewalsAndroid().toString(),
-                      iosText: controller.renewalsIOS().toString(),
-                    ),
-                  ),
-                  trailing: Obx(
-                    () => TrailingWidget(
-                      text: controller.renewalsCount.toString(),
-                      textColor: controller.renewalsCount > 0
-                          ? Colors.lightBlue
-                          : Colors.grey,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ListTile(
                   leading: const Icon(Icons.open_in_new),
                   title: const Text('Trial Conversions'),
                   subtitle: Obx(
                     () => OverviewSubtitle(
-                      text: 'Last: ' + controller.lastConversionDate,
+                      text: 'Last: ${controller.lastConversionDate}',
                       androidText:
                           controller.trialConversionsAndroid().toString(),
                       iosText: controller.trialConversionsIOS().toString(),
@@ -146,6 +143,27 @@ class OverviewDayScreen extends GetView<OverviewDayScreenController> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
+                ListTile(
+                  leading: const Icon(Icons.refresh),
+                  title: const Text('Renewals'),
+                  subtitle: Obx(
+                    () => OverviewSubtitle(
+                      text: 'Last: ${controller.lastRenewalDate}',
+                      androidText: controller.renewalsAndroid().toString(),
+                      iosText: controller.renewalsIOS().toString(),
+                    ),
+                  ),
+                  trailing: Obx(
+                    () => TrailingWidget(
+                      text: controller.renewalsCount.toString(),
+                      textColor: controller.renewalsCount > 0
+                          ? Colors.lightBlue
+                          : Colors.grey,
+                    ),
+                  ),
+                ),
+
                 // ListTile(
                 //   leading: const Icon(Icons.person_add),
                 //   title: const Text('Subscribers'),

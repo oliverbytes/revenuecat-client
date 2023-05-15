@@ -15,8 +15,9 @@ class GeneralAPI extends BaseAPI {
   static GeneralAPI get to => Get.find();
 
   Future<Either<ApiError, Session>> login(String email, String password) async {
-    if (!await internetConnected())
+    if (!await internetConnected()) {
       return Left(ApiError(code: 0, message: kInternetError));
+    }
 
     final result = await baseRequest(
       function: "login",
@@ -34,8 +35,9 @@ class GeneralAPI extends BaseAPI {
   }
 
   Future<Either<ApiError, Overview>> overview() async {
-    if (!await internetConnected())
+    if (!await internetConnected()) {
       return Left(ApiError(code: 0, message: kInternetError));
+    }
 
     final result = await baseRequest(
       function: "overview",
@@ -51,8 +53,9 @@ class GeneralAPI extends BaseAPI {
   }
 
   Future<Either<ApiError, Account>> account() async {
-    if (!await internetConnected())
+    if (!await internetConnected()) {
       return Left(ApiError(code: 0, message: kInternetError));
+    }
 
     final result = await baseRequest(
       function: "me",
@@ -73,8 +76,9 @@ class GeneralAPI extends BaseAPI {
     int limit = 100,
     String query,
   }) async {
-    if (!await internetConnected())
+    if (!await internetConnected()) {
       return Left(ApiError(code: 0, message: kInternetError));
+    }
 
     final Map<String, dynamic> params = {
       'limit': limit,

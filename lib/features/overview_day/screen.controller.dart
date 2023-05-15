@@ -7,6 +7,8 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/utils/constants.dart';
+
 final logger = initLogger("OverviewDayScreenController");
 
 class OverviewDayScreenController extends BaseController {
@@ -18,7 +20,7 @@ class OverviewDayScreenController extends BaseController {
 
   final List<Transaction> overviewTransactions = [];
   DateTime today;
-  int _nextTimestamp = 0;
+  int nextTimestamp = 0;
 
   // PROPERTIES
   final startDate = DateTime.now().obs;
@@ -58,6 +60,16 @@ class OverviewDayScreenController extends BaseController {
   String get revenueIOSString =>
       NumberFormat.simpleCurrency().format(revenueIOS.value);
 
+  String get revenueTotalPhp => NumberFormat.simpleCurrency(locale: 'fil')
+      .format((revenueAndroid.value + revenueIOS.value) * kPesoUsdRate);
+
+  String get revenueAndroidStringPhp =>
+      NumberFormat.simpleCurrency(locale: 'fil')
+          .format(revenueAndroid.value * kPesoUsdRate);
+
+  String get revenueIOSStringPhp => NumberFormat.simpleCurrency(locale: 'fil')
+      .format(revenueIOS.value * kPesoUsdRate);
+
   int get purchasesCount => purchasesAndroid.value + purchasesIOS.value;
 
   int get renewalsCount => renewalsAndroid.value + renewalsIOS.value;
@@ -79,9 +91,7 @@ class OverviewDayScreenController extends BaseController {
       : DateFormat.yMMMEd().format(startDate.value).toUpperCase();
 
   String get lastPurchaseDetails => lastPurchase.value?.purchaseDate != null
-      ? DateFormat.jm().format(lastPurchase.value.purchaseDate) +
-          ' - ' +
-          NumberFormat.simpleCurrency().format(lastPurchase.value.revenue ?? 0)
+      ? '${DateFormat.jm().format(lastPurchase.value.purchaseDate)} - ${NumberFormat.simpleCurrency().format(lastPurchase.value.revenue ?? 0)}'
       : 'none';
 
   String get lastRenewalDate => lastRenewal.value?.purchaseDate != null
@@ -107,21 +117,21 @@ class OverviewDayScreenController extends BaseController {
   // FUNCTIONS
 
   void fetchPrevious() {
-    startDate.value = startDate.value.subtract(Duration(days: 1));
+    startDate.value = startDate.value.subtract(const Duration(days: 1));
     fetch();
   }
 
   void fetchNext() {
-    startDate.value = startDate.value.add(Duration(days: 1));
+    startDate.value = startDate.value.add(const Duration(days: 1));
     fetch();
   }
 
   Future<void> fetch() async {
-    this.busyState();
+    busyState();
 
     _clear();
 
-    final _startDate = DateTime(
+    final startDate_ = DateTime(
       startDate.value.year,
       startDate.value.month,
       startDate.value.day,
@@ -130,34 +140,36 @@ class OverviewDayScreenController extends BaseController {
       59,
     );
 
-    _nextTimestamp = _startDate.millisecondsSinceEpoch;
+    nextTimestamp = startDate_.millisecondsSinceEpoch;
 
-    logger.i('start day: ${_startDate.day}'); // past
+    logger.i('start day: ${startDate_.day}'); // past
 
     loop:
     for (var i = 0; i <= 5; i++) {
       logger.i('loop index: $i');
 
-      final result =
-          await _api.transactions(startTimestamp: _nextTimestamp, limit: 100);
+      final result = await _api.transactions(
+        startTimestamp: nextTimestamp,
+        limit: 100,
+      );
 
       bool breakLoop = false;
 
       result.fold((error) {
-        this.errorState(text: 'API Error: ${error.code}!\n${error.message}');
+        errorState(text: 'API Error: ${error.code}!\n${error.message}');
         breakLoop = true;
         return;
       }, (transactions) {
         if (transactions == null || transactions.isEmpty) {
-          this.errorState(text: 'No results');
+          errorState(text: 'No results');
           breakLoop = true;
           return;
         }
 
-        _nextTimestamp = transactions.last.purchaseDate.millisecondsSinceEpoch;
+        nextTimestamp = transactions.last.purchaseDate.millisecondsSinceEpoch;
 
         for (var e in transactions) {
-          if (e.purchaseDate.day == _startDate.day) {
+          if (e.purchaseDate.day == startDate_.day) {
             overviewTransactions.add(e);
           } else {
             logger.i('break day: ${e.purchaseDate.day}');
@@ -176,10 +188,10 @@ class OverviewDayScreenController extends BaseController {
 
     logger.e('for each');
 
-    Transaction _lastPurchase, _lastRenewal, _lastConversion;
+    Transaction lastPurchase_, lastRenewal_, lastConversion_;
 
     await Future.forEach(overviewTransactions, (Transaction e) {
-      double revenue = e.revenue == null ? 0 : e.revenue;
+      double revenue = e.revenue ?? 0;
 
       if (e.platform.name == 'google') {
         revenueAndroid.value += revenue;
@@ -194,7 +206,10 @@ class OverviewDayScreenController extends BaseController {
         if (e.isTrialPeriod &&
             !e.isTrialConversion &&
             !e.wasRefunded &&
-            !e.isRealRenewal) {
+            !e.isRealRenewal &&
+            !e.isRenewal &&
+            !e.isSandbox &&
+            !e.wasRefunded) {
           trialsAndroid.value++;
         }
       } else if (e.platform.name == 'apple') {
@@ -210,21 +225,24 @@ class OverviewDayScreenController extends BaseController {
         if (e.isTrialPeriod &&
             !e.isTrialConversion &&
             !e.wasRefunded &&
-            !e.isRealRenewal) {
+            !e.isRealRenewal &&
+            !e.isRenewal &&
+            !e.isSandbox &&
+            !e.wasRefunded) {
           trialsIOS.value++;
         }
       }
 
-      if (revenue > 0 && _lastPurchase == null) _lastPurchase = e;
-      if (e.isRealRenewal && _lastRenewal == null) _lastRenewal = e;
-      if (e.isTrialConversion && _lastConversion == null) _lastConversion = e;
+      if (revenue > 0 && lastPurchase_ == null) lastPurchase_ = e;
+      if (e.isRealRenewal && lastRenewal_ == null) lastRenewal_ = e;
+      if (e.isTrialConversion && lastConversion_ == null) lastConversion_ = e;
     });
 
-    lastPurchase.value = _lastPurchase;
-    lastRenewal.value = _lastRenewal;
-    lastConversion.value = _lastConversion;
+    lastPurchase.value = lastPurchase_;
+    lastRenewal.value = lastRenewal_;
+    lastConversion.value = lastConversion_;
 
-    this.idleState();
+    idleState();
   }
 
   void selectDate(BuildContext context) async {
@@ -238,7 +256,13 @@ class OverviewDayScreenController extends BaseController {
     if (selectedDate == null) return;
 
     startDate.value = DateTime(
-        selectedDate.year, selectedDate.month, selectedDate.day, 23, 59, 59);
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+      23,
+      59,
+      59,
+    );
 
     fetch();
   }

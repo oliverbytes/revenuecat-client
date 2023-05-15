@@ -63,8 +63,6 @@ class OverviewScreen extends GetView<OverviewScreenController> {
                 ListTile(
                   leading: const Icon(Icons.access_alarm),
                   title: const Text('Active Trials'),
-                  subtitle: const Text('active trials',
-                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(controller.trials,
                         style: const TextStyle(
@@ -74,8 +72,6 @@ class OverviewScreen extends GetView<OverviewScreenController> {
                 ListTile(
                   leading: const Icon(Icons.refresh),
                   title: const Text('Active Subscriptions'),
-                  subtitle: const Text('active subscribers',
-                      style: const TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(controller.subscribers,
                         style: const TextStyle(
@@ -85,36 +81,74 @@ class OverviewScreen extends GetView<OverviewScreenController> {
                 ListTile(
                   leading: const Icon(Icons.date_range),
                   title: const Text('MRR'),
-                  subtitle: const Text('monthly recurring revenue',
-                      style: const TextStyle(color: Colors.grey)),
+                  subtitle: Obx(
+                    () => Text(
+                      controller.mrrPhp,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   trailing: Obx(
                     () => Text(
                       controller.mrr,
                       style: const TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold)
-                          .copyWith(color: Colors.lightGreen),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ).copyWith(color: Colors.lightGreen),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.date_range),
+                  title: const Text('ARR'),
+                  subtitle: Obx(
+                    () => Text(
+                      controller.arrPhp,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  trailing: Obx(
+                    () => Text(
+                      controller.arr,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ).copyWith(color: Colors.lightGreen),
                     ),
                   ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.attach_money),
                   title: const Text('Revenue'),
-                  subtitle: const Text('last 28 days',
-                      style: const TextStyle(color: Colors.grey)),
+                  subtitle: Obx(
+                    () => Text(
+                      controller.revenuePhp,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   trailing: Obx(
                     () => Text(
                       controller.revenue,
                       style: const TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold)
-                          .copyWith(color: Colors.lightGreen),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ).copyWith(color: Colors.lightGreen),
                     ),
                   ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.phone_android),
-                  title: const Text('Installs'),
+                  title: const Text('New Customers'),
                   subtitle: const Text('last 28 days',
-                      style: const TextStyle(color: Colors.grey)),
+                      style: TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(controller.installs,
                         style: const TextStyle(
@@ -125,7 +159,7 @@ class OverviewScreen extends GetView<OverviewScreenController> {
                   leading: const Icon(Icons.people),
                   title: const Text('Active Users'),
                   subtitle: const Text('last 28 days',
-                      style: const TextStyle(color: Colors.grey)),
+                      style: TextStyle(color: Colors.grey)),
                   trailing: Obx(
                     () => Text(controller.users,
                         style: const TextStyle(

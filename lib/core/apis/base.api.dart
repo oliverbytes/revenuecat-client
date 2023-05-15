@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app/core/models/api_error.model.dart';
 import 'package:app/core/models/hive/session.model.dart';
 import 'package:app/core/utils/logger.dart';
@@ -45,7 +47,7 @@ class BaseAPI extends GetxController {
 
       if (debug) {
         logger.i('HTTP STATUS: ${response.statusCode}');
-        logger.i(response.data);
+        logger.i(jsonEncode(response.data));
       }
 
       return Right(response.data);
